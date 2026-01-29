@@ -1,0 +1,89 @@
+@use '../../../theme' as *;
+
+.social-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border: 2px solid;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: all $transition-medium;
+  position: relative;
+  overflow: hidden;
+
+  .icon {
+    width: 24px;
+    height: 24px;
+    fill: $text-primary;
+    position: relative;
+    z-index: 2;
+    transition: fill $transition-medium;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all $transition-medium;
+    z-index: 1;
+  }
+
+  &:hover::before {
+    width: 100%;
+    height: 100%;
+  }
+
+  &:hover {
+    transform: translateY(-3px) scale(1.05);
+  }
+
+  &:active {
+    transform: translateY(-1px) scale(1.02);
+  }
+}
+
+// Estilos específicos por plataforma
+.social-button.github {
+  border-color: $text-primary;
+
+  &::before {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &:hover {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+  }
+}
+
+.social-button.linkedin {
+  border-color: #0077b5;
+
+  &::before {
+    background: linear-gradient(135deg, #0077b5 0%, #00a0dc 100%);
+  }
+
+  &:hover {
+    border-color: #00a0dc;
+    box-shadow: 0 0 20px rgba(0, 119, 181, 0.6);
+  }
+}
+
+.social-button.youtube {
+  border-color: #ff0000;
+
+  &::before {
+    background: linear-gradient(135deg, #ff0000 0%, #ff4444 100%);
+  }
+
+  &:hover {
+    border-color: #ff4444;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+  }
+}

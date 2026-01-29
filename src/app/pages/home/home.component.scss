@@ -1,0 +1,420 @@
+@use '../../../theme' as *;
+
+.home-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-xl;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+  }
+}
+
+// Decoración cyberpunk
+.cyber-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+
+  .cyber-line {
+    position: absolute;
+    background: $gradient-cyber;
+    opacity: 0.3;
+
+    &.line-1 {
+      width: 2px;
+      height: 200px;
+      top: 10%;
+      left: 10%;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    &.line-2 {
+      width: 150px;
+      height: 2px;
+      top: 60%;
+      right: 15%;
+      animation: float 5s ease-in-out infinite 1s;
+    }
+
+    &.line-3 {
+      width: 2px;
+      height: 150px;
+      bottom: 15%;
+      right: 20%;
+      animation: float 6s ease-in-out infinite 2s;
+    }
+  }
+}
+
+// Contenido del héroe
+.hero-content {
+  animation: fadeInUp 1s ease;
+}
+
+.greeting {
+  font-size: 1.2rem;
+  color: $text-secondary;
+  margin-bottom: $spacing-sm;
+  font-family: 'Courier New', monospace;
+
+  .bracket {
+    color: $primary-pink;
+    font-weight: bold;
+  }
+
+  .hello {
+    margin: 0 $spacing-xs;
+  }
+}
+
+.name {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 900;
+  margin: $spacing-sm 0;
+  position: relative;
+  display: inline-block;
+
+  .name-text {
+    position: relative;
+    z-index: 2;
+    background: $gradient-cyber;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .name-glitch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $gradient-pink;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    z-index: 1;
+  }
+
+  &:hover .name-glitch {
+    animation: glitch 0.3s infinite;
+    opacity: 0.8;
+  }
+}
+
+.title-container {
+  margin: $spacing-md 0;
+}
+
+.title {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: $text-primary;
+  font-family: 'Courier New', monospace;
+
+  .cursor-bracket {
+    color: $primary-blue;
+    font-weight: bold;
+  }
+
+  .typed-text {
+    color: $primary-pink;
+  }
+
+  .cursor {
+    color: $primary-pink;
+    animation: blink 1s infinite;
+  }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba($text-primary, 0.8);
+  margin: $spacing-lg 0;
+  max-width: 600px;
+
+  .highlight {
+    color: $primary-pink;
+    font-weight: 600;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: $gradient-pink;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform $transition-medium;
+    }
+
+    &:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+}
+
+.action-buttons {
+  display: flex;
+  gap: $spacing-md;
+  margin: $spacing-xl 0;
+  flex-wrap: wrap;
+}
+
+.social-links {
+  margin-top: $spacing-xl;
+
+  .social-label {
+    font-family: 'Courier New', monospace;
+    color: $text-secondary;
+    margin-bottom: $spacing-md;
+    font-size: 0.9rem;
+
+    .slash {
+      color: $primary-pink;
+      margin-right: $spacing-xs;
+    }
+  }
+
+  .social-buttons {
+    display: flex;
+    gap: $spacing-md;
+  }
+}
+
+// Visual del héroe
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  @media (max-width: 968px) {
+    order: -1;
+  }
+}
+
+.avatar-container {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+.avatar-frame {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border: 3px solid $primary-pink;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba($primary-purple, 0.3);
+  backdrop-filter: blur(10px);
+  box-shadow: $glow-pink;
+  animation: rotate 20s linear infinite;
+
+  @media (max-width: 768px) {
+    width: 250px;
+    height: 250px;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid;
+  }
+
+  &::before {
+    border-color: $primary-blue transparent $primary-blue transparent;
+    animation: rotate 3s linear infinite;
+  }
+
+  &::after {
+    border-color: transparent $primary-pink transparent $primary-pink;
+    animation: rotate 4s linear infinite reverse;
+  }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.avatar-glow {
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, rgba($primary-pink, 0.3) 0%, transparent 70%);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.avatar-placeholder {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    color: $primary-pink;
+    filter: drop-shadow(0 0 10px $primary-pink);
+  }
+}
+
+.floating-element {
+  position: absolute;
+  font-size: 2rem;
+  font-weight: bold;
+  color: $primary-blue;
+  opacity: 0.6;
+  animation: float 3s ease-in-out infinite;
+  text-shadow: 0 0 10px currentColor;
+
+  &.element-1 {
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  &.element-2 {
+    top: 70%;
+    right: 10%;
+    animation-delay: 1s;
+  }
+
+  &.element-3 {
+    bottom: 10%;
+    left: 20%;
+    animation-delay: 2s;
+  }
+}
+
+// Indicador de scroll
+.scroll-indicator {
+  position: absolute;
+  bottom: $spacing-lg;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-sm;
+  opacity: 0.6;
+  animation: fadeIn 2s ease 1s forwards;
+
+  .mouse {
+    width: 26px;
+    height: 40px;
+    border: 2px solid $primary-blue;
+    border-radius: 15px;
+    position: relative;
+
+    .wheel {
+      width: 4px;
+      height: 8px;
+      background: $primary-blue;
+      border-radius: 2px;
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: scroll 2s ease infinite;
+    }
+  }
+
+  .scroll-text {
+    font-size: 0.8rem;
+    color: $text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'Courier New', monospace;
+  }
+}
+
+@keyframes scroll {
+  0% {
+    top: 8px;
+    opacity: 1;
+  }
+  100% {
+    top: 24px;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.6;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

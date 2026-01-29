@@ -1,0 +1,111 @@
+<section class="home-section">
+  <div class="container">
+    <div class="home-content">
+      <!-- Decoración cyberpunk -->
+      <div class="cyber-decoration">
+        <div class="cyber-line line-1"></div>
+        <div class="cyber-line line-2"></div>
+        <div class="cyber-line line-3"></div>
+      </div>
+
+      <!-- Contenido principal -->
+      <div class="hero-content">
+        <!-- Saludo animado -->
+        <div class="greeting">
+          <span class="bracket">&lt;</span>
+          <span class="hello">Hola, soy</span>
+          <span class="bracket">/&gt;</span>
+        </div>
+
+        <!-- Nombre principal -->
+        <h1 class="name">
+          <span class="name-text">Garbi-Collector</span>
+          <span class="name-glitch" aria-hidden="true">Garbi-Collector</span>
+        </h1>
+
+        <!-- Título con efecto de escritura -->
+        <div class="title-container">
+          <h2 class="title">
+            <span class="cursor-bracket">[</span>
+            <span class="typed-text">
+              {{ titleinit }}<br>
+              {{ typedText }}
+</span>
+
+            <span class="cursor">_</span>
+            <span class="cursor-bracket">]</span>
+          </h2>
+        </div>
+
+        <!-- Descripción -->
+        <p class="description">
+          Me dedico a desarrollar <span class="highlight">software robusto</span>,
+          <span class="highlight">escalable</span> y con
+          <span class="highlight">diseño impecable</span>.
+          Transformo ideas en experiencias digitales que impactan.
+        </p>
+
+        <!-- Botones de acción
+        <div class="action-buttons">
+          <app-cyber-button variant="primary">
+            Ver Proyectos
+          </app-cyber-button>
+          <app-cyber-button variant="secondary">
+            Contáctame
+          </app-cyber-button>
+        </div>
+ -->
+        <!-- Botones de redes sociales -->
+        <div class="social-links">
+          <div class="social-label">
+            <span class="slash">//</span>
+            <span>Encuéntrame en</span>
+          </div>
+          <div class="social-buttons">
+            <app-social-button
+              platform="linkedin"
+              [url]="linkedinUrl">
+            </app-social-button>
+            <app-social-button
+              platform="github"
+              [url]="githubUrl">
+            </app-social-button>
+            <app-social-button
+              platform="youtube"
+              [url]="youtubeUrl">
+            </app-social-button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Avatar / Imagen decorativa -->
+      <div class="hero-visual">
+        <div class="avatar-container">
+          <div class="avatar-frame">
+            <div class="avatar-glow"></div>
+            <!-- Aquí puedes poner tu foto o un ícono -->
+            <div class="avatar-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <!-- Elementos decorativos flotantes -->
+          <div class="floating-element element-1">&#60;/&#62;</div>
+          <div class="floating-element element-2">{{ '{ }' }}</div>
+          <div class="floating-element element-3">[ ]</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <div class="mouse">
+        <div class="wheel"></div>
+      </div>
+      <span class="scroll-text">Scroll Down</span>
+    </div>
+  </div>
+</section>

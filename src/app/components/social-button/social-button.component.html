@@ -1,0 +1,8 @@
+<a
+  [href]="url"
+  target="_blank"
+  rel="noopener noreferrer"
+  [class]="'social-button ' + platform"
+  [attr.aria-label]="platform">
+  <svg class="icon" [innerHTML]="getIcon()"></svg>
+</a>

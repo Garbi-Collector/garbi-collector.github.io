@@ -1,0 +1,45 @@
+
+
+// Cyberpunk Theme Colors
+$primary-pink: #f46eb1;
+$primary-pink-dark: #ef4495;
+$primary-blue: #95a4dc;
+$primary-blue-dark: #5e79c1;
+$primary-purple: #33387b;
+$primary-dark: #100a4f;
+
+// Semantic colors
+$background-primary: $primary-dark;
+$background-secondary: $primary-purple;
+$accent-primary: $primary-pink;
+$accent-secondary: $primary-blue;
+$text-primary: #ffffff;
+$text-secondary: $primary-blue;
+
+// Gradients
+$gradient-pink: linear-gradient(135deg, $primary-pink-dark 0%, $primary-pink 100%);
+$gradient-blue: linear-gradient(135deg, $primary-blue-dark 0%, $primary-blue 100%);
+$gradient-purple: linear-gradient(135deg, $primary-dark 0%, $primary-purple 100%);
+$gradient-cyber: linear-gradient(135deg, $primary-pink-dark 0%, $primary-purple 50%, $primary-blue-dark 100%);
+
+// Shadows & Glows
+$glow-pink: 0 0 20px rgba(244, 110, 177, 0.5);
+$glow-blue: 0 0 20px rgba(149, 164, 220, 0.5);
+$shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.3);
+
+// Transitions
+$transition-fast: 0.2s ease;
+$transition-medium: 0.3s ease;
+$transition-slow: 0.5s ease;
+
+// Border radius
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+
+// Spacing
+$spacing-xs: 0.5rem;
+$spacing-sm: 1rem;
+$spacing-md: 1.5rem;
+$spacing-lg: 2rem;
+$spacing-xl: 3rem;
