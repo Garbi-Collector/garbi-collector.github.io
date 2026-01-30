@@ -1,5 +1,105 @@
 @use '../../../theme' as *;
 
+// ==========================================
+// VARIABLES LOCALES
+// ==========================================
+$mobile-breakpoint: 968px;
+$tablet-breakpoint: 768px;
+$mobile-small: 480px;
+
+// ==========================================
+// MIXINS REUTILIZABLES
+// ==========================================
+
+// Mixin para centrado completo
+@mixin center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Mixin para prevenir overflow
+@mixin no-overflow {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+// Mixin para optimización GPU
+@mixin gpu-optimized {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+// Mixin para anillos orbitales
+@mixin orbital-ring($size, $border-color, $shadow, $duration) {
+  position: absolute;
+  width: $size;
+  height: $size;
+  border: 2px solid $border-color;
+  border-radius: 50%;
+  box-shadow: $shadow;
+  animation: rotate $duration linear infinite;
+  @include gpu-optimized;
+}
+
+// Mixin para elementos flotantes
+@mixin floating-element($top, $left, $right, $bottom, $delay, $color, $shadow) {
+  position: absolute;
+  top: $top;
+  left: $left;
+  right: $right;
+  bottom: $bottom;
+  font-size: 2.5rem;
+  font-weight: bold;
+  animation: float 4s ease-in-out infinite $delay;
+  z-index: -5;
+  @include gpu-optimized;
+
+  .element-content {
+    position: relative;
+    z-index: 2;
+    font-family: 'Courier New', monospace;
+    color: $color;
+    text-shadow: $shadow;
+  }
+
+  .element-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: $color;
+    filter: blur(20px);
+    animation: element-glow-pulse 2s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+}
+
+// Mixin para responsive
+@mixin mobile {
+  @media (max-width: $mobile-breakpoint) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: $tablet-breakpoint) {
+    @content;
+  }
+}
+
+@mixin mobile-small {
+  @media (max-width: $mobile-small) {
+    @content;
+  }
+}
+
+// ==========================================
+// LAYOUT PRINCIPAL
+// ==========================================
 .home-section {
   min-height: 100vh;
   display: flex;
@@ -7,75 +107,9 @@
   justify-content: center;
   padding: $spacing-xl 0;
   position: relative;
-
-
-
-  @keyframes cube-rise {
-    0%, 100% {
-      transform: translateZ(0) rotateX(0deg);
-    }
-    50% {
-      transform: translateZ(30px) rotateX(10deg);
-    }
-  }
-
-  @keyframes glow-cyan-border {
-    0%, 100% {
-      border-color: rgba(0, 245, 255, 0);
-      box-shadow:
-        inset 0 0 0 rgba(0, 245, 255, 0),
-        0 0 0 rgba(0, 245, 255, 0);
-    }
-    50% {
-      border-color: rgba(0, 245, 255, 0.8);
-      box-shadow:
-        inset 0 0 20px rgba(0, 245, 255, 0.6),
-        0 0 20px rgba(0, 245, 255, 0.8),
-        0 0 40px rgba(0, 245, 255, 0.4);
-    }
-  }
-
-  @keyframes glow-pink-border {
-    0%, 100% {
-      border-color: rgba(255, 0, 110, 0);
-      box-shadow:
-        inset 0 0 0 rgba(255, 0, 110, 0),
-        0 0 0 rgba(255, 0, 110, 0);
-    }
-    50% {
-      border-color: rgba(255, 0, 110, 0.8);
-      box-shadow:
-        inset 0 0 20px rgba(255, 0, 110, 0.6),
-        0 0 20px rgba(255, 0, 110, 0.8),
-        0 0 40px rgba(255, 0, 110, 0.4);
-    }
-  }
-
-  @keyframes glow-purple-border {
-    0%, 100% {
-      border-color: rgba(139, 0, 255, 0);
-      box-shadow:
-        inset 0 0 0 rgba(139, 0, 255, 0),
-        0 0 0 rgba(139, 0, 255, 0);
-    }
-    50% {
-      border-color: rgba(139, 0, 255, 0.8);
-      box-shadow:
-        inset 0 0 20px rgba(139, 0, 255, 0.6),
-        0 0 20px rgba(139, 0, 255, 0.8),
-        0 0 40px rgba(139, 0, 255, 0.4);
-    }
-  }
-
-
-  @keyframes scan-move {
-    0% {
-      transform: translateY(0);
-    }
-    100% {
-      transform: translateY(100px);
-    }
-  }
+  max-width: 100vw;
+  overflow-x: hidden;
+  contain: layout;
 }
 
 .home-content {
@@ -85,14 +119,20 @@
   align-items: center;
   position: relative;
   z-index: 2;
+  @include no-overflow;
+  width: 100%;
 
-  @media (max-width: 968px) {
+  @include mobile {
     grid-template-columns: 1fr;
     gap: $spacing-lg;
+    justify-items: center;
+    text-align: center;
   }
 }
 
-// Decoración cyberpunk mejorada con LEDs
+// ==========================================
+// DECORACIONES CYBERPUNK
+// ==========================================
 .cyber-decoration {
   position: absolute;
   top: 0;
@@ -101,172 +141,161 @@
   height: 100%;
   pointer-events: none;
   z-index: 1;
+  @include no-overflow;
+}
 
-  .cyber-line {
+// Líneas LED
+.cyber-line {
+  position: absolute;
+  background: $gradient-neon;
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+  box-shadow: $led-cyan;
+
+  .led-strip {
     position: absolute;
-    background: $gradient-neon;
-    background-size: 200% 200%;
-    animation: gradient-shift 3s ease infinite;
-    box-shadow: $led-cyan;
+    width: 100%;
+    height: 100%;
+    animation: led-flow 2s linear infinite;
+  }
+
+  &.line-1 {
+    width: 3px;
+    height: 200px;
+    top: 10%;
+    left: 10%;
+    animation: float 4s ease-in-out infinite, gradient-shift 3s ease infinite;
 
     .led-strip {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg,
-        transparent 0%,
-        $neon-cyan 50%,
-        transparent 100%
-      );
-      animation: led-flow 2s linear infinite;
-    }
-
-    &.line-1 {
-      width: 3px;
-      height: 200px;
-      top: 10%;
-      left: 10%;
-      animation: float 4s ease-in-out infinite, gradient-shift 3s ease infinite;
-    }
-
-    &.line-2 {
-      width: 150px;
-      height: 3px;
-      top: 60%;
-      right: 15%;
-      animation: float 5s ease-in-out infinite 1s, gradient-shift 3s ease infinite;
-
-      .led-strip {
-        background: linear-gradient(90deg,
-          transparent 0%,
-          $neon-pink 50%,
-          transparent 100%
-        );
-      }
-    }
-
-    &.line-3 {
-      width: 3px;
-      height: 150px;
-      bottom: 15%;
-      right: 20%;
-      animation: float 6s ease-in-out infinite 2s, gradient-shift 3s ease infinite;
-
-      .led-strip {
-        background: linear-gradient(180deg,
-          transparent 0%,
-          $neon-purple 50%,
-          transparent 100%
-        );
-      }
+      background: linear-gradient(90deg, transparent 0%, $neon-cyan 50%, transparent 100%);
     }
   }
 
-  @keyframes led-flow {
-    0% {
-      opacity: 0.3;
-      transform: translateX(-100%) translateY(-100%);
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0.3;
-      transform: translateX(100%) translateY(100%);
-    }
-  }
+  &.line-2 {
+    width: 150px;
+    height: 3px;
+    top: 60%;
+    right: 15%;
+    animation: float 5s ease-in-out infinite 1s, gradient-shift 3s ease infinite;
 
-  // Esquinas con efecto LED
-  .cyber-corner {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    border: 3px solid $neon-cyan;
-    box-shadow: $led-cyan;
-    animation: corner-pulse 2s ease-in-out infinite;
-    z-index: -4;
-
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      background: $neon-cyan;
-      box-shadow: $led-cyan;
+    .led-strip {
+      background: linear-gradient(90deg, transparent 0%, $neon-pink 50%, transparent 100%);
     }
 
-    &::before {
-      width: 15px;
-      height: 3px;
-    }
-
-    &::after {
-      width: 3px;
-      height: 15px;
-    }
-
-    &.corner-1 {
-      top: 5%;
-      left: 5%;
-      border-right: none;
-      border-bottom: none;
-
-      &::before { top: 0; left: 0; }
-      &::after { top: 0; left: 0; }
-    }
-
-    &.corner-2 {
-      top: 5%;
-      right: 5%;
-      border-left: none;
-      border-bottom: none;
-      border-color: $neon-pink;
-      box-shadow: $led-pink;
-      animation-delay: 0.5s;
-
-      &::before { top: 0; right: 0; background: $neon-pink; box-shadow: $led-pink; }
-      &::after { top: 0; right: 0; background: $neon-pink; box-shadow: $led-pink; }
-    }
-
-    &.corner-3 {
-      bottom: 5%;
-      left: 5%;
-      border-right: none;
-      border-top: none;
-      border-color: $neon-purple;
-      box-shadow: $led-purple;
-      animation-delay: 1s;
-
-      &::before { bottom: 0; left: 0; background: $neon-purple; box-shadow: $led-purple; }
-      &::after { bottom: 0; left: 0; background: $neon-purple; box-shadow: $led-purple; }
-    }
-
-    &.corner-4 {
-      bottom: 5%;
-      right: 5%;
-      border-left: none;
-      border-top: none;
-      animation-delay: 1.5s;
-
-      &::before { bottom: 0; right: 0; }
-      &::after { bottom: 0; right: 0; }
+    @include mobile {
+      display: none;
     }
   }
 
-  @keyframes corner-pulse {
-    0%, 100% {
-      opacity: 0.6;
-      transform: scale(1);
+  &.line-3 {
+    width: 3px;
+    height: 150px;
+    bottom: 15%;
+    right: 20%;
+    animation: float 6s ease-in-out infinite 2s, gradient-shift 3s ease infinite;
+
+    .led-strip {
+      background: linear-gradient(180deg, transparent 0%, $neon-purple 50%, transparent 100%);
     }
-    50% {
-      opacity: 1;
-      transform: scale(1.1);
+
+    @include mobile {
+      display: none;
     }
   }
 }
 
-// Contenido del héroe
+// Esquinas decorativas
+.cyber-corner {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 3px solid $neon-cyan;
+  box-shadow: $led-cyan;
+  animation: corner-pulse 2s ease-in-out infinite;
+  z-index: -4;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    background: $neon-cyan;
+    box-shadow: $led-cyan;
+  }
+
+  &::before { width: 15px; height: 3px; }
+  &::after { width: 3px; height: 15px; }
+
+  &.corner-1 {
+    top: 5%;
+    left: 5%;
+    border-right: none;
+    border-bottom: none;
+    &::before, &::after { top: 0; left: 0; }
+  }
+
+  &.corner-2 {
+    top: 5%;
+    right: 5%;
+    border-left: none;
+    border-bottom: none;
+    border-color: $neon-pink;
+    box-shadow: $led-pink;
+    animation-delay: 0.5s;
+    &::before, &::after {
+      top: 0;
+      right: 0;
+      background: $neon-pink;
+      box-shadow: $led-pink;
+    }
+  }
+
+  &.corner-3 {
+    bottom: 5%;
+    left: 5%;
+    border-right: none;
+    border-top: none;
+    border-color: $neon-purple;
+    box-shadow: $led-purple;
+    animation-delay: 1s;
+    &::before, &::after {
+      bottom: 0;
+      left: 0;
+      background: $neon-purple;
+      box-shadow: $led-purple;
+    }
+
+    @include mobile {
+      display: none;
+    }
+  }
+
+  &.corner-4 {
+    bottom: 5%;
+    right: 5%;
+    border-left: none;
+    border-top: none;
+    animation-delay: 1.5s;
+    &::before, &::after { bottom: 0; right: 0; }
+
+    @include mobile {
+      display: none;
+    }
+  }
+}
+
+// ==========================================
+// CONTENIDO HERO
+// ==========================================
 .hero-content {
   animation: fadeInUp 1s ease;
+  @include no-overflow;
+
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
 }
 
 .greeting {
@@ -279,7 +308,6 @@
   .bracket {
     color: $neon-pink;
     font-weight: bold;
-
     &.glow-effect {
       text-shadow: $led-pink;
       animation: led-flicker 2s ease-in-out infinite;
@@ -291,24 +319,14 @@
   }
 }
 
-@keyframes neon-flicker {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.95;
-  }
-  75% {
-    opacity: 0.9;
-  }
-}
-
 .name {
   font-size: clamp(2.5rem, 8vw, 5rem);
   font-weight: 900;
   margin: $spacing-sm 0;
   position: relative;
   display: inline-block;
+  max-width: 100%;
+  word-break: break-word;
 
   .name-text {
     position: relative;
@@ -354,6 +372,7 @@
 .title-container {
   margin: $spacing-md 0;
   position: relative;
+  max-width: 100%;
 }
 
 .title {
@@ -362,19 +381,17 @@
   color: $text-primary;
   font-family: 'Courier New', monospace;
   position: relative;
+  max-width: 100%;
+  word-break: break-word;
 
   .cursor-bracket {
     color: $neon-cyan;
     font-weight: bold;
-
-    &.glow-effect {
-      text-shadow: 0 0 5px $neon-cyan;
-    }
+    &.glow-effect { text-shadow: 0 0 5px $neon-cyan; }
   }
 
   .typed-text {
     color: $text-primary;
-
     .neon-text {
       color: $neon-pink;
       text-shadow: 0 0 8px rgba(255, 0, 110, 0.4);
@@ -388,11 +405,6 @@
   }
 }
 
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
-}
-
 .description {
   font-size: 1.1rem;
   line-height: 1.8;
@@ -400,12 +412,16 @@
   margin: $spacing-lg 0;
   max-width: 600px;
 
+  @include mobile {
+    max-width: 100%;
+    padding: 0 $spacing-md;
+  }
+
   .highlight {
     font-weight: 600;
     position: relative;
     display: inline-block;
 
-    // Neón sutil para mejor legibilidad
     &.subtle-pink {
       color: lighten($neon-pink, 10%);
       text-shadow: 0 0 5px rgba(255, 0, 110, 0.3);
@@ -442,8 +458,18 @@
   }
 }
 
+// ==========================================
+// REDES SOCIALES
+// ==========================================
 .social-links {
   margin-top: $spacing-xl;
+  max-width: 100%;
+
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
   .social-label {
     font-family: 'Courier New', monospace;
@@ -456,10 +482,7 @@
     .slash {
       color: $neon-pink;
       margin-right: $spacing-xs;
-
-      &.glow-effect {
-        text-shadow: $led-pink;
-      }
+      &.glow-effect { text-shadow: $led-pink; }
     }
 
     .led-line {
@@ -479,77 +502,63 @@
     display: flex;
     gap: $spacing-md;
     margin-top: $spacing-md;
+    flex-wrap: wrap;
+
+    @include mobile {
+      justify-content: center;
+    }
   }
 }
 
-// Visual del héroe con efectos avanzados
+// ==========================================
+// AVATAR VISUAL (DESKTOP ONLY)
+// ==========================================
 .hero-visual {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include center-content;
   position: relative;
-
-  @media (max-width: 968px) {
-    order: -1;
-  }
+  @include no-overflow;
 }
 
 .avatar-container {
   position: relative;
   width: 450px;
   height: 450px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  max-width: 100%;
+  max-height: 100vw;
+  @include center-content;
+  contain: layout;
 
-  @media (max-width: 768px) {
+  @include tablet {
     width: 350px;
     height: 350px;
   }
+
+  @include mobile-small {
+    width: 280px;
+    height: 280px;
+  }
 }
 
-// Anillos orbitales LED
+// Anillos orbitales
 .orbital-ring {
-  position: absolute;
-  border: 2px solid;
-  border-radius: 50%;
-  animation: rotate 20s linear infinite;
-
   &.ring-1 {
-    width: 400px;
-    height: 400px;
-    border-color: $neon-pink transparent $neon-pink transparent;
-    box-shadow: $led-pink;
-    animation-duration: 15s;
+    @include orbital-ring(400px, $neon-pink transparent $neon-pink transparent, $led-pink, 15s);
+    @include tablet { width: 320px; height: 320px; }
+    @include mobile-small { width: 260px; height: 260px; }
   }
 
   &.ring-2 {
-    width: 350px;
-    height: 350px;
-    border-color: transparent $neon-cyan transparent $neon-cyan;
-    box-shadow: $led-cyan;
-    animation-duration: 20s;
+    @include orbital-ring(350px, transparent $neon-cyan transparent $neon-cyan, $led-cyan, 20s);
     animation-direction: reverse;
+    @include tablet { width: 280px; height: 280px; }
+    @include mobile-small { width: 220px; height: 220px; }
   }
 
   &.ring-3 {
-    width: 300px;
-    height: 300px;
-    border-color: $neon-purple transparent $neon-purple transparent;
-    box-shadow: $led-purple;
-    animation-duration: 25s;
+    @include orbital-ring(300px, $neon-purple transparent $neon-purple transparent, $led-purple, 25s);
+    @include tablet { width: 240px; height: 240px; }
+    @include mobile-small { width: 180px; height: 180px; }
   }
-
-  @media (max-width: 768px) {
-    &.ring-1 { width: 320px; height: 320px; }
-    &.ring-2 { width: 280px; height: 280px; }
-    &.ring-3 { width: 240px; height: 240px; }
-  }
-}
-
-@keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
 
 .avatar-frame {
@@ -559,71 +568,36 @@
   border: 3px solid;
   border-image: $gradient-neon 1;
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include center-content;
   background: radial-gradient(circle, rgba(139, 0, 255, 0.2) 0%, rgba(10, 0, 21, 0.8) 70%);
   backdrop-filter: blur(10px);
-  box-shadow:
-    inset 0 0 30px rgba(255, 0, 110, 0.3),
-    inset 0 0 60px rgba(0, 245, 255, 0.2),
-    $led-pink;
+  box-shadow: inset 0 0 30px rgba(255, 0, 110, 0.3), inset 0 0 60px rgba(0, 245, 255, 0.2), $led-pink;
   animation: frame-pulse 3s ease-in-out infinite;
   overflow: hidden;
+  will-change: transform;
 
-  @media (max-width: 768px) {
-    width: 220px;
-    height: 220px;
-  }
+  @include tablet { width: 220px; height: 220px; }
+  @include mobile-small { width: 160px; height: 160px; }
 
-  // Efecto de escaneo
   .scan-effect {
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(0, 245, 255, 0.5) 50%,
-        transparent 100%
-    );
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 245, 255, 0.5) 50%, transparent 100%);
     animation: scan-sweep 3s linear infinite;
-  }
-
-  @keyframes scan-sweep {
-    0% {
-      left: -100%;
-    }
-    100% {
-      left: 100%;
-    }
+    will-change: left;
   }
 }
 
-@keyframes frame-pulse {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow:
-      inset 0 0 30px rgba(255, 0, 110, 0.3),
-      inset 0 0 60px rgba(0, 245, 255, 0.2),
-      $led-pink;
-  }
-  50% {
-    transform: scale(1.02);
-    box-shadow:
-      inset 0 0 40px rgba(255, 0, 110, 0.5),
-      inset 0 0 80px rgba(0, 245, 255, 0.4),
-      $led-cyan;
-  }
-}
-
-// Resplandores múltiples
+// Resplandores
 .avatar-glow {
   position: absolute;
   border-radius: 50%;
   animation: glow-pulse 4s ease-in-out infinite;
+  will-change: transform, opacity;
+  @include gpu-optimized;
 
   &.glow-1 {
     width: 140%;
@@ -646,18 +620,7 @@
   }
 }
 
-@keyframes glow-pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.4;
-  }
-  50% {
-    transform: scale(1.15);
-    opacity: 0.7;
-  }
-}
-
-// Patrón hexagonal
+// Hexágonos
 .hex-pattern {
   position: absolute;
   width: 100%;
@@ -670,13 +633,15 @@
     border: 2px solid;
     clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
     animation: hex-float 4s ease-in-out infinite;
+    will-change: transform, opacity;
+
+    @include tablet { width: 40px; height: 40px; }
 
     &.hex-1 {
       top: 10%;
       right: 10%;
       border-color: $neon-pink;
       box-shadow: inset $led-pink;
-      animation-delay: 0s;
     }
 
     &.hex-2 {
@@ -695,26 +660,16 @@
       animation-delay: 2.6s;
     }
   }
-
-  @keyframes hex-float {
-    0%, 100% {
-      transform: translateY(0) rotate(0deg);
-      opacity: 0.6;
-    }
-    50% {
-      transform: translateY(-15px) rotate(180deg);
-      opacity: 1;
-    }
-  }
 }
 
 .avatar-placeholder {
   width: 150px;
   height: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include center-content;
   z-index: 2;
+
+  @include tablet { width: 120px; height: 120px; }
+  @include mobile-small { width: 90px; height: 90px; }
 
   svg {
     width: 100%;
@@ -723,100 +678,16 @@
     filter: drop-shadow(0 0 20px $neon-cyan) drop-shadow(0 0 40px $neon-cyan);
     animation: icon-glow 3s ease-in-out infinite;
   }
-
-  @keyframes icon-glow {
-    0%, 100% {
-      filter: drop-shadow(0 0 20px $neon-cyan) drop-shadow(0 0 40px $neon-cyan);
-    }
-    50% {
-      filter: drop-shadow(0 0 30px $neon-pink) drop-shadow(0 0 60px $neon-pink);
-    }
-  }
 }
 
-// Elementos flotantes mejorados
+// Elementos flotantes
 .floating-element {
-  position: absolute;
-  font-size: 2.5rem;
-  font-weight: bold;
-  animation: float 4s ease-in-out infinite;
-  z-index: -5;
+  @include tablet { font-size: 2rem; }
+  @include mobile-small { display: none; }
 
-  .element-content {
-    position: relative;
-    z-index: 2;
-    font-family: 'Courier New', monospace;
-  }
-
-  .element-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    filter: blur(20px);
-    animation: element-glow-pulse 2s ease-in-out infinite;
-  }
-
-  &.element-1 {
-    top: 8%;
-    left: 8%;
-    animation-delay: 0s;
-
-    .element-content {
-      color: $neon-cyan;
-      text-shadow: $led-cyan;
-    }
-
-    .element-glow {
-      background: $neon-cyan;
-    }
-  }
-
-  &.element-2 {
-    top: 70%;
-    right: 8%;
-    animation-delay: 1.3s;
-
-    .element-content {
-      color: $neon-pink;
-      text-shadow: $led-pink;
-    }
-
-    .element-glow {
-      background: $neon-pink;
-      animation-delay: 0.5s;
-    }
-  }
-
-  &.element-3 {
-    bottom: 8%;
-    left: 15%;
-    animation-delay: 2.6s;
-
-    .element-content {
-      color: $neon-purple;
-      text-shadow: $led-purple;
-    }
-
-    .element-glow {
-      background: $neon-purple;
-      animation-delay: 1s;
-    }
-  }
-
-  @keyframes element-glow-pulse {
-    0%, 100% {
-      opacity: 0.4;
-      transform: translate(-50%, -50%) scale(0.8);
-    }
-    50% {
-      opacity: 0.8;
-      transform: translate(-50%, -50%) scale(1.2);
-    }
-  }
+  &.element-1 { @include floating-element(8%, 8%, auto, auto, 0s, $neon-cyan, $led-cyan); }
+  &.element-2 { @include floating-element(70%, auto, 8%, auto, 1.3s, $neon-pink, $led-pink); .element-glow { animation-delay: 0.5s; } }
+  &.element-3 { @include floating-element(auto, 15%, auto, 8%, 2.6s, $neon-purple, $led-purple); .element-glow { animation-delay: 1s; } }
 }
 
 // Lluvia binaria
@@ -828,6 +699,8 @@
   height: 100%;
   pointer-events: none;
 
+  @include mobile-small { display: none; }
+
   span {
     position: absolute;
     font-family: 'Courier New', monospace;
@@ -836,56 +709,100 @@
     text-shadow: 0 0 10px $neon-green;
     opacity: 0;
     animation: binary-fall 8s linear infinite;
+    will-change: top, opacity;
 
-    &:nth-child(1) {
-      left: 20%;
-      animation-delay: 0s;
-    }
-
-    &:nth-child(2) {
-      left: 40%;
-      animation-delay: 2s;
-    }
-
-    &:nth-child(3) {
-      left: 60%;
-      animation-delay: 4s;
-    }
-
-    &:nth-child(4) {
-      left: 80%;
-      animation-delay: 6s;
-    }
-  }
-
-  @keyframes binary-fall {
-    0% {
-      top: -10%;
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-    }
-    90% {
-      opacity: 1;
-    }
-    100% {
-      top: 110%;
-      opacity: 0;
-    }
+    &:nth-child(1) { left: 20%; animation-delay: 0s; }
+    &:nth-child(2) { left: 40%; animation-delay: 2s; }
+    &:nth-child(3) { left: 60%; animation-delay: 4s; }
+    &:nth-child(4) { left: 80%; animation-delay: 6s; }
   }
 }
 
-// Animación de entrada
+// ==========================================
+// ANIMACIONES
+// ==========================================
+@keyframes led-flow {
+  0% { opacity: 0.3; transform: translateX(-100%) translateY(-100%); }
+  50% { opacity: 1; }
+  100% { opacity: 0.3; transform: translateX(100%) translateY(100%); }
+}
+
+@keyframes corner-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+@keyframes neon-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.95; }
+  75% { opacity: 0.9; }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes frame-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: inset 0 0 30px rgba(255, 0, 110, 0.3), inset 0 0 60px rgba(0, 245, 255, 0.2), $led-pink;
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: inset 0 0 40px rgba(255, 0, 110, 0.5), inset 0 0 80px rgba(0, 245, 255, 0.4), $led-cyan;
+  }
+}
+
+@keyframes scan-sweep {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.4; }
+  50% { transform: scale(1.15); opacity: 0.7; }
+}
+
+@keyframes hex-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+  50% { transform: translateY(-15px) rotate(180deg); opacity: 1; }
+}
+
+@keyframes icon-glow {
+  0%, 100% { filter: drop-shadow(0 0 20px $neon-cyan) drop-shadow(0 0 40px $neon-cyan); }
+  50% { filter: drop-shadow(0 0 30px $neon-pink) drop-shadow(0 0 60px $neon-pink); }
+}
+
+@keyframes element-glow-pulse {
+  0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.8); }
+  50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.2); }
+}
+
+@keyframes binary-fall {
+  0% { top: -10%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 110%; opacity: 0; }
+}
+
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-
+// ==========================================
+// OPTIMIZACIONES
+// ==========================================
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -32,15 +32,28 @@ export class HomeComponent implements OnInit, OnDestroy {
   isDeleting = false;
   private typeTimeout: any;
 
+  isMobile = false;
 
   ngOnInit() {
+    this.checkIfMobile();
     this.typeEffect();
+
+    // ✅ Opcional: Escuchar cambios de tamaño de ventana
+    window.addEventListener('resize', this.checkIfMobile.bind(this));
   }
 
   ngOnDestroy() {
     if (this.typeTimeout) {
       clearTimeout(this.typeTimeout);
     }
+
+    // ✅ Limpiar event listener
+    window.removeEventListener('resize', this.checkIfMobile.bind(this));
+  }
+
+  checkIfMobile() {
+    // Considera móvil si el ancho es <= 968px (mismo breakpoint que tu CSS)
+    this.isMobile = window.innerWidth <= 968;
   }
 
   typeEffect() {
@@ -67,8 +80,4 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.typeTimeout = setTimeout(() => this.typeEffect(), speed);
   }
-
-
-
-
 }

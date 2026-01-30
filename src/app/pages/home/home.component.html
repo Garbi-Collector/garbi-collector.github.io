@@ -19,7 +19,6 @@
         <div class="cyber-corner corner-4"></div>
       </div>
 
-
       <div class="hero-content">
         <!-- Saludo animado con efecto glitch -->
         <div class="greeting">
@@ -81,8 +80,9 @@
         </div>
       </div>
 
-      <!-- Avatar con efectos holográficos mejorados -->
-      <div class="hero-visual">
+
+      <!-- *ngIf="!isMobile" hace que Angular NO renderice este bloque en móvil -->
+      <div class="hero-visual" *ngIf="!isMobile">
         <div class="avatar-container">
           <!-- Anillos LED orbitales -->
           <div class="orbital-ring ring-1"></div>
