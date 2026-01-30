@@ -4,5 +4,10 @@
   rel="noopener noreferrer"
   [class]="'social-button ' + platform"
   [attr.aria-label]="platform">
-  <svg class="icon" [innerHTML]="getIcon()"></svg>
+  <svg
+    class="icon"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    [innerHTML]="getIcon()">
+  </svg>
 </a>

@@ -1,0 +1,272 @@
+@use '../../../theme' as *;
+
+.nav-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-sm $spacing-md;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $text-secondary;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all $transition-medium;
+  overflow: hidden;
+  z-index: 1;
+
+  // Borde animado
+  .nav-button-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid transparent;
+    border-image: linear-gradient(45deg, $neon-cyan, transparent, transparent, transparent) 1;
+    pointer-events: none;
+    transition: all $transition-medium;
+  }
+
+  // Contenido
+  .nav-button-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+    transition: all $transition-medium;
+  }
+
+  .nav-icon {
+    font-size: 1.1rem;
+    transition: all $transition-medium;
+  }
+
+  .nav-label {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: $gradient-neon;
+      background-size: 200% 200%;
+      box-shadow: $led-cyan;
+      transition: width $transition-medium;
+      animation: gradient-shift 3s ease infinite;
+    }
+  }
+
+  // Efecto de resplandor
+  .nav-button-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, $neon-cyan 0%, transparent 70%);
+    opacity: 0;
+    transition: all $transition-medium;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  // Partículas decorativas
+  .nav-button-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity $transition-medium;
+    z-index: 2;
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: $neon-pink;
+      box-shadow: 0 0 5px $neon-pink;
+      opacity: 0;
+
+      &:nth-child(1) {
+        top: 20%;
+        left: 20%;
+      }
+
+      &:nth-child(2) {
+        top: 50%;
+        right: 20%;
+      }
+
+      &:nth-child(3) {
+        bottom: 20%;
+        left: 50%;
+      }
+    }
+  }
+
+  // Hover state
+  &:hover {
+    color: $neon-cyan;
+    transform: translateY(-2px);
+
+    .nav-button-border {
+      border-image: linear-gradient(45deg, $neon-cyan, $neon-pink, $neon-purple, $neon-cyan) 1;
+      animation: border-rotate 2s linear infinite;
+    }
+
+    .nav-label::after {
+      width: 100%;
+    }
+
+    .nav-button-glow {
+      width: 120%;
+      height: 200%;
+      opacity: 0.3;
+    }
+
+    .nav-button-particles {
+      opacity: 1;
+
+      .particle {
+        animation: particle-burst 0.6s ease-out forwards;
+
+        &:nth-child(1) {
+          animation-delay: 0s;
+        }
+
+        &:nth-child(2) {
+          animation-delay: 0.1s;
+        }
+
+        &:nth-child(3) {
+          animation-delay: 0.2s;
+        }
+      }
+    }
+
+    .nav-icon {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 5px $neon-cyan);
+    }
+  }
+
+  // Active state (página actual)
+  &.active {
+    color: $neon-pink;
+
+    .nav-button-border {
+      border-image: linear-gradient(45deg, $neon-pink, $neon-purple, $neon-cyan, $neon-pink) 1;
+      animation: border-rotate 3s linear infinite;
+    }
+
+    .nav-label::after {
+      width: 100%;
+      background: $neon-pink;
+      box-shadow: $led-pink;
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    .nav-icon {
+      color: $neon-pink;
+      filter: drop-shadow(0 0 8px $neon-pink);
+      animation: icon-pulse 2s ease-in-out infinite;
+    }
+
+    .nav-button-glow {
+      width: 100%;
+      height: 150%;
+      opacity: 0.2;
+      background: radial-gradient(circle, $neon-pink 0%, transparent 70%);
+      animation: glow-pulse 2s ease-in-out infinite;
+    }
+  }
+
+  // Efecto de click
+  &:active {
+    transform: translateY(0);
+
+    .nav-button-content {
+      transform: scale(0.95);
+    }
+  }
+}
+
+// Animaciones
+@keyframes border-rotate {
+  0% {
+    border-image-source: linear-gradient(45deg, $neon-cyan, $neon-pink, $neon-purple, $neon-cyan);
+  }
+  25% {
+    border-image-source: linear-gradient(45deg, $neon-pink, $neon-purple, $neon-cyan, $neon-pink);
+  }
+  50% {
+    border-image-source: linear-gradient(45deg, $neon-purple, $neon-cyan, $neon-pink, $neon-purple);
+  }
+  75% {
+    border-image-source: linear-gradient(45deg, $neon-cyan, $neon-pink, $neon-purple, $neon-cyan);
+  }
+  100% {
+    border-image-source: linear-gradient(45deg, $neon-pink, $neon-purple, $neon-cyan, $neon-pink);
+  }
+}
+
+@keyframes particle-burst {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx, 20px), var(--ty, -20px)) scale(1);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: $led-pink;
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 20px $neon-pink, 0 0 40px $neon-pink;
+  }
+}
+
+@keyframes icon-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}

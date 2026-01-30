@@ -1,0 +1,16 @@
+<a
+  [routerLink]="route"
+  routerLinkActive="active"
+  class="nav-button">
+  <span class="nav-button-border"></span>
+  <span class="nav-button-content">
+    <span class="nav-icon" *ngIf="icon">{{ icon }}</span>
+    <span class="nav-label">{{ label }}</span>
+  </span>
+  <span class="nav-button-glow"></span>
+  <span class="nav-button-particles">
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+  </span>
+</a>
