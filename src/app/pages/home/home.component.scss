@@ -7,7 +7,75 @@
   justify-content: center;
   padding: $spacing-xl 0;
   position: relative;
-  overflow: hidden;
+
+
+
+  @keyframes cube-rise {
+    0%, 100% {
+      transform: translateZ(0) rotateX(0deg);
+    }
+    50% {
+      transform: translateZ(30px) rotateX(10deg);
+    }
+  }
+
+  @keyframes glow-cyan-border {
+    0%, 100% {
+      border-color: rgba(0, 245, 255, 0);
+      box-shadow:
+        inset 0 0 0 rgba(0, 245, 255, 0),
+        0 0 0 rgba(0, 245, 255, 0);
+    }
+    50% {
+      border-color: rgba(0, 245, 255, 0.8);
+      box-shadow:
+        inset 0 0 20px rgba(0, 245, 255, 0.6),
+        0 0 20px rgba(0, 245, 255, 0.8),
+        0 0 40px rgba(0, 245, 255, 0.4);
+    }
+  }
+
+  @keyframes glow-pink-border {
+    0%, 100% {
+      border-color: rgba(255, 0, 110, 0);
+      box-shadow:
+        inset 0 0 0 rgba(255, 0, 110, 0),
+        0 0 0 rgba(255, 0, 110, 0);
+    }
+    50% {
+      border-color: rgba(255, 0, 110, 0.8);
+      box-shadow:
+        inset 0 0 20px rgba(255, 0, 110, 0.6),
+        0 0 20px rgba(255, 0, 110, 0.8),
+        0 0 40px rgba(255, 0, 110, 0.4);
+    }
+  }
+
+  @keyframes glow-purple-border {
+    0%, 100% {
+      border-color: rgba(139, 0, 255, 0);
+      box-shadow:
+        inset 0 0 0 rgba(139, 0, 255, 0),
+        0 0 0 rgba(139, 0, 255, 0);
+    }
+    50% {
+      border-color: rgba(139, 0, 255, 0.8);
+      box-shadow:
+        inset 0 0 20px rgba(139, 0, 255, 0.6),
+        0 0 20px rgba(139, 0, 255, 0.8),
+        0 0 40px rgba(139, 0, 255, 0.4);
+    }
+  }
+
+
+  @keyframes scan-move {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(100px);
+    }
+  }
 }
 
 .home-content {
@@ -24,7 +92,7 @@
   }
 }
 
-// Decoración cyberpunk
+// Decoración cyberpunk mejorada con LEDs
 .cyber-decoration {
   position: absolute;
   top: 0;
@@ -36,31 +104,161 @@
 
   .cyber-line {
     position: absolute;
-    background: $gradient-cyber;
-    opacity: 0.3;
+    background: $gradient-neon;
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+    box-shadow: $led-cyan;
+
+    .led-strip {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        $neon-cyan 50%,
+        transparent 100%
+      );
+      animation: led-flow 2s linear infinite;
+    }
 
     &.line-1 {
-      width: 2px;
+      width: 3px;
       height: 200px;
       top: 10%;
       left: 10%;
-      animation: float 4s ease-in-out infinite;
+      animation: float 4s ease-in-out infinite, gradient-shift 3s ease infinite;
     }
 
     &.line-2 {
       width: 150px;
-      height: 2px;
+      height: 3px;
       top: 60%;
       right: 15%;
-      animation: float 5s ease-in-out infinite 1s;
+      animation: float 5s ease-in-out infinite 1s, gradient-shift 3s ease infinite;
+
+      .led-strip {
+        background: linear-gradient(90deg,
+          transparent 0%,
+          $neon-pink 50%,
+          transparent 100%
+        );
+      }
     }
 
     &.line-3 {
-      width: 2px;
+      width: 3px;
       height: 150px;
       bottom: 15%;
       right: 20%;
-      animation: float 6s ease-in-out infinite 2s;
+      animation: float 6s ease-in-out infinite 2s, gradient-shift 3s ease infinite;
+
+      .led-strip {
+        background: linear-gradient(180deg,
+          transparent 0%,
+          $neon-purple 50%,
+          transparent 100%
+        );
+      }
+    }
+  }
+
+  @keyframes led-flow {
+    0% {
+      opacity: 0.3;
+      transform: translateX(-100%) translateY(-100%);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.3;
+      transform: translateX(100%) translateY(100%);
+    }
+  }
+
+  // Esquinas con efecto LED
+  .cyber-corner {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 3px solid $neon-cyan;
+    box-shadow: $led-cyan;
+    animation: corner-pulse 2s ease-in-out infinite;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      background: $neon-cyan;
+      box-shadow: $led-cyan;
+    }
+
+    &::before {
+      width: 15px;
+      height: 3px;
+    }
+
+    &::after {
+      width: 3px;
+      height: 15px;
+    }
+
+    &.corner-1 {
+      top: 5%;
+      left: 5%;
+      border-right: none;
+      border-bottom: none;
+
+      &::before { top: 0; left: 0; }
+      &::after { top: 0; left: 0; }
+    }
+
+    &.corner-2 {
+      top: 5%;
+      right: 5%;
+      border-left: none;
+      border-bottom: none;
+      border-color: $neon-pink;
+      box-shadow: $led-pink;
+      animation-delay: 0.5s;
+
+      &::before { top: 0; right: 0; background: $neon-pink; box-shadow: $led-pink; }
+      &::after { top: 0; right: 0; background: $neon-pink; box-shadow: $led-pink; }
+    }
+
+    &.corner-3 {
+      bottom: 5%;
+      left: 5%;
+      border-right: none;
+      border-top: none;
+      border-color: $neon-purple;
+      box-shadow: $led-purple;
+      animation-delay: 1s;
+
+      &::before { bottom: 0; left: 0; background: $neon-purple; box-shadow: $led-purple; }
+      &::after { bottom: 0; left: 0; background: $neon-purple; box-shadow: $led-purple; }
+    }
+
+    &.corner-4 {
+      bottom: 5%;
+      right: 5%;
+      border-left: none;
+      border-top: none;
+      animation-delay: 1.5s;
+
+      &::before { bottom: 0; right: 0; }
+      &::after { bottom: 0; right: 0; }
+    }
+  }
+
+  @keyframes corner-pulse {
+    0%, 100% {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.1);
     }
   }
 }
@@ -75,14 +273,32 @@
   color: $text-secondary;
   margin-bottom: $spacing-sm;
   font-family: 'Courier New', monospace;
+  animation: neon-flicker 3s ease-in-out infinite;
 
   .bracket {
-    color: $primary-pink;
+    color: $neon-pink;
     font-weight: bold;
+
+    &.glow-effect {
+      text-shadow: $led-pink;
+      animation: led-flicker 2s ease-in-out infinite;
+    }
   }
 
   .hello {
     margin: 0 $spacing-xs;
+  }
+}
+
+@keyframes neon-flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.95;
+  }
+  75% {
+    opacity: 0.9;
   }
 }
 
@@ -95,11 +311,14 @@
 
   .name-text {
     position: relative;
-    z-index: 2;
-    background: $gradient-cyber;
+    z-index: 4;
+    background: $gradient-neon;
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    animation: gradient-shift 3s ease infinite;
+    filter: drop-shadow(0 0 15px rgba(0, 245, 255, 0.5));
   }
 
   .name-glitch {
@@ -108,22 +327,32 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: $gradient-pink;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     opacity: 0;
-    z-index: 1;
-  }
+    pointer-events: none;
 
-  &:hover .name-glitch {
-    animation: glitch 0.3s infinite;
-    opacity: 0.8;
+    &.glitch-1 {
+      background: linear-gradient(45deg, $neon-pink, transparent);
+      z-index: 3;
+    }
+
+    &.glitch-2 {
+      background: linear-gradient(45deg, transparent, $neon-cyan);
+      z-index: 2;
+    }
+
+    &.glitch-3 {
+      background: linear-gradient(45deg, $neon-purple, $neon-pink);
+      z-index: 1;
+    }
   }
 }
 
 .title-container {
   margin: $spacing-md 0;
+  position: relative;
 }
 
 .title {
@@ -131,18 +360,29 @@
   font-weight: 700;
   color: $text-primary;
   font-family: 'Courier New', monospace;
+  position: relative;
 
   .cursor-bracket {
-    color: $primary-blue;
+    color: $neon-cyan;
     font-weight: bold;
+
+    &.glow-effect {
+      text-shadow: 0 0 5px $neon-cyan;
+    }
   }
 
   .typed-text {
-    color: $primary-pink;
+    color: $text-primary;
+
+    .neon-text {
+      color: $neon-pink;
+      text-shadow: 0 0 8px rgba(255, 0, 110, 0.4);
+    }
   }
 
   .cursor {
-    color: $primary-pink;
+    color: $neon-pink;
+    text-shadow: 0 0 5px rgba(255, 0, 110, 0.4);
     animation: blink 1s infinite;
   }
 }
@@ -155,14 +395,30 @@
 .description {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: rgba($text-primary, 0.8);
+  color: rgba($text-primary, 0.9);
   margin: $spacing-lg 0;
   max-width: 600px;
 
   .highlight {
-    color: $primary-pink;
     font-weight: 600;
     position: relative;
+    display: inline-block;
+
+    // Neón sutil para mejor legibilidad
+    &.subtle-pink {
+      color: lighten($neon-pink, 10%);
+      text-shadow: 0 0 5px rgba(255, 0, 110, 0.3);
+    }
+
+    &.subtle-cyan {
+      color: lighten($neon-cyan, 5%);
+      text-shadow: 0 0 5px rgba(0, 245, 255, 0.3);
+    }
+
+    &.subtle-purple {
+      color: lighten($neon-purple, 15%);
+      text-shadow: 0 0 5px rgba(139, 0, 255, 0.3);
+    }
 
     &::after {
       content: '';
@@ -171,7 +427,8 @@
       left: 0;
       width: 100%;
       height: 2px;
-      background: $gradient-pink;
+      background: currentColor;
+      box-shadow: 0 0 5px currentColor;
       transform: scaleX(0);
       transform-origin: right;
       transition: transform $transition-medium;
@@ -184,13 +441,6 @@
   }
 }
 
-.action-buttons {
-  display: flex;
-  gap: $spacing-md;
-  margin: $spacing-xl 0;
-  flex-wrap: wrap;
-}
-
 .social-links {
   margin-top: $spacing-xl;
 
@@ -199,20 +449,39 @@
     color: $text-secondary;
     margin-bottom: $spacing-md;
     font-size: 0.9rem;
+    position: relative;
+    display: inline-block;
 
     .slash {
-      color: $primary-pink;
+      color: $neon-pink;
       margin-right: $spacing-xs;
+
+      &.glow-effect {
+        text-shadow: $led-pink;
+      }
+    }
+
+    .led-line {
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: $gradient-neon;
+      background-size: 200% 200%;
+      box-shadow: $led-cyan;
+      animation: gradient-shift 3s ease infinite;
     }
   }
 
   .social-buttons {
     display: flex;
     gap: $spacing-md;
+    margin-top: $spacing-md;
   }
 }
 
-// Visual del héroe
+// Visual del héroe con efectos avanzados
 .hero-visual {
   display: flex;
   justify-content: center;
@@ -226,55 +495,54 @@
 
 .avatar-container {
   position: relative;
-  width: 400px;
-  height: 400px;
+  width: 450px;
+  height: 450px;
   display: flex;
   justify-content: center;
   align-items: center;
 
   @media (max-width: 768px) {
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
   }
 }
 
-.avatar-frame {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  border: 3px solid $primary-pink;
+// Anillos orbitales LED
+.orbital-ring {
+  position: absolute;
+  border: 2px solid;
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba($primary-purple, 0.3);
-  backdrop-filter: blur(10px);
-  box-shadow: $glow-pink;
   animation: rotate 20s linear infinite;
 
+  &.ring-1 {
+    width: 400px;
+    height: 400px;
+    border-color: $neon-pink transparent $neon-pink transparent;
+    box-shadow: $led-pink;
+    animation-duration: 15s;
+  }
+
+  &.ring-2 {
+    width: 350px;
+    height: 350px;
+    border-color: transparent $neon-cyan transparent $neon-cyan;
+    box-shadow: $led-cyan;
+    animation-duration: 20s;
+    animation-direction: reverse;
+  }
+
+  &.ring-3 {
+    width: 300px;
+    height: 300px;
+    border-color: $neon-purple transparent $neon-purple transparent;
+    box-shadow: $led-purple;
+    animation-duration: 25s;
+  }
+
   @media (max-width: 768px) {
-    width: 250px;
-    height: 250px;
-  }
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 2px solid;
-  }
-
-  &::before {
-    border-color: $primary-blue transparent $primary-blue transparent;
-    animation: rotate 3s linear infinite;
-  }
-
-  &::after {
-    border-color: transparent $primary-pink transparent $primary-pink;
-    animation: rotate 4s linear infinite reverse;
+    &.ring-1 { width: 320px; height: 320px; }
+    &.ring-2 { width: 280px; height: 280px; }
+    &.ring-3 { width: 240px; height: 240px; }
   }
 }
 
@@ -283,22 +551,159 @@
   to { transform: rotate(360deg); }
 }
 
-.avatar-glow {
-  position: absolute;
-  width: 120%;
-  height: 120%;
-  background: radial-gradient(circle, rgba($primary-pink, 0.3) 0%, transparent 70%);
-  animation: pulse 2s ease-in-out infinite;
+.avatar-frame {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  border: 3px solid;
+  border-image: $gradient-neon 1;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle, rgba(139, 0, 255, 0.2) 0%, rgba(10, 0, 21, 0.8) 70%);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    inset 0 0 30px rgba(255, 0, 110, 0.3),
+    inset 0 0 60px rgba(0, 245, 255, 0.2),
+    $led-pink;
+  animation: frame-pulse 3s ease-in-out infinite;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    width: 220px;
+    height: 220px;
+  }
+
+  // Efecto de escaneo
+  .scan-effect {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(0, 245, 255, 0.5) 50%,
+        transparent 100%
+    );
+    animation: scan-sweep 3s linear infinite;
+  }
+
+  @keyframes scan-sweep {
+    0% {
+      left: -100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
 }
 
-@keyframes pulse {
+@keyframes frame-pulse {
   0%, 100% {
     transform: scale(1);
-    opacity: 0.5;
+    box-shadow:
+      inset 0 0 30px rgba(255, 0, 110, 0.3),
+      inset 0 0 60px rgba(0, 245, 255, 0.2),
+      $led-pink;
   }
   50% {
-    transform: scale(1.1);
-    opacity: 0.8;
+    transform: scale(1.02);
+    box-shadow:
+      inset 0 0 40px rgba(255, 0, 110, 0.5),
+      inset 0 0 80px rgba(0, 245, 255, 0.4),
+      $led-cyan;
+  }
+}
+
+// Resplandores múltiples
+.avatar-glow {
+  position: absolute;
+  border-radius: 50%;
+  animation: glow-pulse 4s ease-in-out infinite;
+
+  &.glow-1 {
+    width: 140%;
+    height: 140%;
+    background: radial-gradient(circle, rgba(255, 0, 110, 0.4) 0%, transparent 60%);
+  }
+
+  &.glow-2 {
+    width: 120%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(0, 245, 255, 0.3) 0%, transparent 60%);
+    animation-delay: 1.3s;
+  }
+
+  &.glow-3 {
+    width: 160%;
+    height: 160%;
+    background: radial-gradient(circle, rgba(139, 0, 255, 0.2) 0%, transparent 60%);
+    animation-delay: 2.6s;
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.7;
+  }
+}
+
+// Patrón hexagonal
+.hex-pattern {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  .hexagon {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 2px solid;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
+    animation: hex-float 4s ease-in-out infinite;
+
+    &.hex-1 {
+      top: 10%;
+      right: 10%;
+      border-color: $neon-pink;
+      box-shadow: inset $led-pink;
+      animation-delay: 0s;
+    }
+
+    &.hex-2 {
+      bottom: 15%;
+      left: 10%;
+      border-color: $neon-cyan;
+      box-shadow: inset $led-cyan;
+      animation-delay: 1.3s;
+    }
+
+    &.hex-3 {
+      top: 50%;
+      right: 5%;
+      border-color: $neon-purple;
+      box-shadow: inset $led-purple;
+      animation-delay: 2.6s;
+    }
+  }
+
+  @keyframes hex-float {
+    0%, 100% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 0.6;
+    }
+    50% {
+      transform: translateY(-15px) rotate(180deg);
+      opacity: 1;
+    }
   }
 }
 
@@ -313,108 +718,173 @@
   svg {
     width: 100%;
     height: 100%;
-    color: $primary-pink;
-    filter: drop-shadow(0 0 10px $primary-pink);
+    color: $neon-cyan;
+    filter: drop-shadow(0 0 20px $neon-cyan) drop-shadow(0 0 40px $neon-cyan);
+    animation: icon-glow 3s ease-in-out infinite;
+  }
+
+  @keyframes icon-glow {
+    0%, 100% {
+      filter: drop-shadow(0 0 20px $neon-cyan) drop-shadow(0 0 40px $neon-cyan);
+    }
+    50% {
+      filter: drop-shadow(0 0 30px $neon-pink) drop-shadow(0 0 60px $neon-pink);
+    }
   }
 }
 
+// Elementos flotantes mejorados
 .floating-element {
   position: absolute;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
-  color: $primary-blue;
-  opacity: 0.6;
-  animation: float 3s ease-in-out infinite;
-  text-shadow: 0 0 10px currentColor;
+  animation: float 4s ease-in-out infinite;
+  z-index: -5;
+
+  .element-content {
+    position: relative;
+    z-index: 2;
+    font-family: 'Courier New', monospace;
+  }
+
+  .element-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    filter: blur(20px);
+    animation: element-glow-pulse 2s ease-in-out infinite;
+  }
 
   &.element-1 {
-    top: 10%;
-    left: 10%;
+    top: 8%;
+    left: 8%;
     animation-delay: 0s;
+
+    .element-content {
+      color: $neon-cyan;
+      text-shadow: $led-cyan;
+    }
+
+    .element-glow {
+      background: $neon-cyan;
+    }
   }
 
   &.element-2 {
     top: 70%;
-    right: 10%;
-    animation-delay: 1s;
-  }
+    right: 8%;
+    animation-delay: 1.3s;
 
-  &.element-3 {
-    bottom: 10%;
-    left: 20%;
-    animation-delay: 2s;
-  }
-}
+    .element-content {
+      color: $neon-pink;
+      text-shadow: $led-pink;
+    }
 
-// Indicador de scroll
-.scroll-indicator {
-  position: absolute;
-  bottom: $spacing-lg;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: $spacing-sm;
-  opacity: 0.6;
-  animation: fadeIn 2s ease 1s forwards;
-
-  .mouse {
-    width: 26px;
-    height: 40px;
-    border: 2px solid $primary-blue;
-    border-radius: 15px;
-    position: relative;
-
-    .wheel {
-      width: 4px;
-      height: 8px;
-      background: $primary-blue;
-      border-radius: 2px;
-      position: absolute;
-      top: 8px;
-      left: 50%;
-      transform: translateX(-50%);
-      animation: scroll 2s ease infinite;
+    .element-glow {
+      background: $neon-pink;
+      animation-delay: 0.5s;
     }
   }
 
-  .scroll-text {
-    font-size: 0.8rem;
-    color: $text-secondary;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+  &.element-3 {
+    bottom: 8%;
+    left: 15%;
+    animation-delay: 2.6s;
+
+    .element-content {
+      color: $neon-purple;
+      text-shadow: $led-purple;
+    }
+
+    .element-glow {
+      background: $neon-purple;
+      animation-delay: 1s;
+    }
+  }
+
+  @keyframes element-glow-pulse {
+    0%, 100% {
+      opacity: 0.4;
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+    50% {
+      opacity: 0.8;
+      transform: translate(-50%, -50%) scale(1.2);
+    }
+  }
+}
+
+// Lluvia binaria
+.binary-rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+
+  span {
+    position: absolute;
     font-family: 'Courier New', monospace;
-  }
-}
-
-@keyframes scroll {
-  0% {
-    top: 8px;
-    opacity: 1;
-  }
-  100% {
-    top: 24px;
+    font-size: 0.8rem;
+    color: $neon-green;
+    text-shadow: 0 0 10px $neon-green;
     opacity: 0;
+    animation: binary-fall 8s linear infinite;
+
+    &:nth-child(1) {
+      left: 20%;
+      animation-delay: 0s;
+    }
+
+    &:nth-child(2) {
+      left: 40%;
+      animation-delay: 2s;
+    }
+
+    &:nth-child(3) {
+      left: 60%;
+      animation-delay: 4s;
+    }
+
+    &:nth-child(4) {
+      left: 80%;
+      animation-delay: 6s;
+    }
+  }
+
+  @keyframes binary-fall {
+    0% {
+      top: -10%;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      top: 110%;
+      opacity: 0;
+    }
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 0.6;
-  }
-}
-
+// Animación de entrada
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
+

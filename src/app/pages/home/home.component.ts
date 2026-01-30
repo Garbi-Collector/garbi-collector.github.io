@@ -1,24 +1,24 @@
-import { Component } from '@angular/core';
-import {SocialButtonComponent} from "../../components/social-button/social-button.component";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SocialButtonComponent } from "../../components/social-button/social-button.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
+    CommonModule,
     SocialButtonComponent
   ],
   templateUrl: './home.component.html',
-  styleUrls: [
-    './home.component.scss'
-  ]
+  styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit, OnDestroy {
 
   linkedinUrl = "https://www.linkedin.com/in/victor-gabriel-castillo-scipioni/";
   githubUrl = "https://github.com/Garbi-Collector";
   youtubeUrl = "https://www.youtube.com/channel/UCsXf368oEb5Ul7XukUAxHVg";
 
-  titleinit:string ="Desarrollador "
+  titleinit: string = "Desarrollador ";
   titles: string[] = [
     'FullStack',
     'BackEnd',
@@ -30,9 +30,17 @@ export class HomeComponent {
   currentIndex = 0;
   charIndex = 0;
   isDeleting = false;
+  private typeTimeout: any;
+
 
   ngOnInit() {
     this.typeEffect();
+  }
+
+  ngOnDestroy() {
+    if (this.typeTimeout) {
+      clearTimeout(this.typeTimeout);
+    }
   }
 
   typeEffect() {
@@ -57,6 +65,10 @@ export class HomeComponent {
       speed = 300;
     }
 
-    setTimeout(() => this.typeEffect(), speed);
+    this.typeTimeout = setTimeout(() => this.typeEffect(), speed);
   }
+
+
+
+
 }

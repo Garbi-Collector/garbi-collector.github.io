@@ -1,65 +1,67 @@
 <section class="home-section">
   <div class="container">
     <div class="home-content">
-      <!-- Decoración cyberpunk -->
+      <!-- Decoración cyberpunk mejorada -->
       <div class="cyber-decoration">
-        <div class="cyber-line line-1"></div>
-        <div class="cyber-line line-2"></div>
-        <div class="cyber-line line-3"></div>
+        <div class="cyber-line line-1">
+          <div class="led-strip"></div>
+        </div>
+        <div class="cyber-line line-2">
+          <div class="led-strip"></div>
+        </div>
+        <div class="cyber-line line-3">
+          <div class="led-strip"></div>
+        </div>
+        <div class="cyber-corner corner-1"></div>
+        <div class="cyber-corner corner-2"></div>
+        <div class="cyber-corner corner-3"></div>
+        <div class="cyber-corner corner-4"></div>
       </div>
 
       <!-- Contenido principal -->
       <div class="hero-content">
-        <!-- Saludo animado -->
+        <!-- Saludo animado con efecto glitch -->
         <div class="greeting">
-          <span class="bracket">&lt;</span>
+          <span class="bracket glow-effect">&lt;</span>
           <span class="hello">Hola, soy</span>
-          <span class="bracket">/&gt;</span>
+          <span class="bracket glow-effect">/&gt;</span>
         </div>
 
-        <!-- Nombre principal -->
+        <!-- Nombre principal con múltiples capas de glitch -->
         <h1 class="name">
           <span class="name-text">Garbi-Collector</span>
-          <span class="name-glitch" aria-hidden="true">Garbi-Collector</span>
+          <span class="name-glitch glitch-1" aria-hidden="true">Garbi-Collector</span>
+          <span class="name-glitch glitch-2" aria-hidden="true">Garbi-Collector</span>
+          <span class="name-glitch glitch-3" aria-hidden="true">Garbi-Collector</span>
         </h1>
 
         <!-- Título con efecto de escritura -->
         <div class="title-container">
           <h2 class="title">
-            <span class="cursor-bracket">[</span>
+            <span class="cursor-bracket glow-effect">[</span>
             <span class="typed-text">
               {{ titleinit }}<br>
-              {{ typedText }}
-</span>
-
+              <span class="neon-text">{{ typedText }}</span>
+            </span>
             <span class="cursor">_</span>
-            <span class="cursor-bracket">]</span>
+            <span class="cursor-bracket glow-effect">]</span>
           </h2>
         </div>
 
-        <!-- Descripción -->
+        <!-- Descripción con efectos de neón sutiles -->
         <p class="description">
-          Me dedico a desarrollar <span class="highlight">software robusto</span>,
-          <span class="highlight">escalable</span> y con
-          <span class="highlight">diseño impecable</span>.
+          Me dedico a desarrollar <span class="highlight subtle-pink">software robusto</span>,
+          <span class="highlight subtle-cyan">escalable</span> y con
+          <span class="highlight subtle-purple">diseño impecable</span>.
           Transformo ideas en experiencias digitales que impactan.
         </p>
 
-        <!-- Botones de acción
-        <div class="action-buttons">
-          <app-cyber-button variant="primary">
-            Ver Proyectos
-          </app-cyber-button>
-          <app-cyber-button variant="secondary">
-            Contáctame
-          </app-cyber-button>
-        </div>
- -->
         <!-- Botones de redes sociales -->
         <div class="social-links">
           <div class="social-label">
-            <span class="slash">//</span>
+            <span class="slash glow-effect">//</span>
             <span>Encuéntrame en</span>
+            <div class="led-line"></div>
           </div>
           <div class="social-buttons">
             <app-social-button
@@ -78,12 +80,27 @@
         </div>
       </div>
 
-      <!-- Avatar / Imagen decorativa -->
+      <!-- Avatar con efectos holográficos mejorados -->
       <div class="hero-visual">
         <div class="avatar-container">
+          <!-- Anillos LED orbitales -->
+          <div class="orbital-ring ring-1"></div>
+          <div class="orbital-ring ring-2"></div>
+          <div class="orbital-ring ring-3"></div>
+
+          <!-- Frame principal con efecto holográfico -->
           <div class="avatar-frame">
-            <div class="avatar-glow"></div>
-            <!-- Aquí puedes poner tu foto o un ícono -->
+            <div class="avatar-glow glow-1"></div>
+            <div class="avatar-glow glow-2"></div>
+            <div class="avatar-glow glow-3"></div>
+
+            <!-- Hexágonos decorativos -->
+            <div class="hex-pattern">
+              <div class="hexagon hex-1"></div>
+              <div class="hexagon hex-2"></div>
+              <div class="hexagon hex-3"></div>
+            </div>
+
             <div class="avatar-placeholder">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -91,21 +108,34 @@
                 <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
+
+            <!-- Efecto de escaneo -->
+            <div class="scan-effect"></div>
           </div>
-          <!-- Elementos decorativos flotantes -->
-          <div class="floating-element element-1">&#60;/&#62;</div>
-          <div class="floating-element element-2">{{ '{ }' }}</div>
-          <div class="floating-element element-3">[ ]</div>
+
+          <!-- Elementos decorativos flotantes con LED -->
+          <div class="floating-element element-1">
+            <span class="element-content">&#60;/&#62;</span>
+            <div class="element-glow"></div>
+          </div>
+          <div class="floating-element element-2">
+            <span class="element-content">{{ '{' }} {{ '}' }}</span>
+            <div class="element-glow"></div>
+          </div>
+          <div class="floating-element element-3">
+            <span class="element-content">[ ]</span>
+            <div class="element-glow"></div>
+          </div>
+
+          <!-- Números binarios flotantes -->
+          <div class="binary-rain">
+            <span>01</span>
+            <span>10</span>
+            <span>11</span>
+            <span>00</span>
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="scroll-indicator">
-      <div class="mouse">
-        <div class="wheel"></div>
-      </div>
-      <span class="scroll-text">Scroll Down</span>
     </div>
   </div>
 </section>
