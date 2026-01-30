@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy:gh": "ng build --output-path dist/garbi-collector.github.io --base-href \"https://garbi-collector.github.io/garbi-collector.github.io/\" && npx angular-cli-ghpages --dir=dist/garbi-collector.github.io/browser"
   },
   "private": true,
   "dependencies": {
