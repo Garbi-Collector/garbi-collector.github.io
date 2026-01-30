@@ -37,7 +37,7 @@ export class BackgroundComponent implements OnInit, OnDestroy {
   }
 
   generateParticles() {
-    const particleCount = 30;
+    const particleCount = 15; // ✅ Reducido de 30 a 15
     const colors = ['cyan', 'pink', 'purple'];
 
     for (let i = 0; i < particleCount; i++) {
@@ -51,16 +51,16 @@ export class BackgroundComponent implements OnInit, OnDestroy {
   }
 
   generateGridCubes() {
-    const cubeCount = 12;
+    const cubeCount = 6; // ✅ Reducido de 12 a 6
     const colors = ['cyan', 'pink', 'purple'];
-    const gridSize = 20;
+    const gridSize = 12; // ✅ Reducido de 20x20 a 12x12 (144 elementos en lugar de 400)
 
     for (let i = 0; i < cubeCount; i++) {
       this.gridCubes.push({
         row: Math.floor(Math.random() * gridSize),
         col: Math.floor(Math.random() * gridSize),
         animationDelay: `${Math.random() * 8}s`,
-        animationDuration: `${3 + Math.random() * 3}s`,
+        animationDuration: `${4 + Math.random() * 2}s`, // ✅ Duración más corta
         color: colors[Math.floor(Math.random() * colors.length)]
       });
     }
