@@ -1,31 +1,44 @@
+// Cyberpunk Theme Colors - Enhanced
+$primary-pink: #ff006e;
+$primary-pink-dark: #d90368;
+$primary-cyan: #00f5ff;
+$primary-cyan-dark: #00d9ff;
+$primary-purple: #8b00ff;
+$primary-dark: #0a0015;
+$primary-darker: #050008;
 
-
-// Cyberpunk Theme Colors
-$primary-pink: #f46eb1;
-$primary-pink-dark: #ef4495;
-$primary-blue: #95a4dc;
-$primary-blue-dark: #5e79c1;
-$primary-purple: #33387b;
-$primary-dark: #100a4f;
+// Neon colors
+$neon-pink: #ff006e;
+$neon-cyan: #00f5ff;
+$neon-purple: #8b00ff;
+$neon-yellow: #ffea00;
+$neon-green: #39ff14;
 
 // Semantic colors
-$background-primary: $primary-dark;
-$background-secondary: $primary-purple;
-$accent-primary: $primary-pink;
-$accent-secondary: $primary-blue;
+$background-primary: $primary-darker;
+$background-secondary: $primary-dark;
+$accent-primary: $neon-pink;
+$accent-secondary: $neon-cyan;
 $text-primary: #ffffff;
-$text-secondary: $primary-blue;
+$text-secondary: $neon-cyan;
 
 // Gradients
 $gradient-pink: linear-gradient(135deg, $primary-pink-dark 0%, $primary-pink 100%);
-$gradient-blue: linear-gradient(135deg, $primary-blue-dark 0%, $primary-blue 100%);
+$gradient-cyan: linear-gradient(135deg, $primary-cyan-dark 0%, $primary-cyan 100%);
 $gradient-purple: linear-gradient(135deg, $primary-dark 0%, $primary-purple 100%);
-$gradient-cyber: linear-gradient(135deg, $primary-pink-dark 0%, $primary-purple 50%, $primary-blue-dark 100%);
+$gradient-cyber: linear-gradient(135deg, $neon-pink 0%, $neon-purple 50%, $neon-cyan 100%);
+$gradient-neon: linear-gradient(45deg, $neon-pink, $neon-purple, $neon-cyan, $neon-pink);
 
-// Shadows & Glows
-$glow-pink: 0 0 20px rgba(244, 110, 177, 0.5);
-$glow-blue: 0 0 20px rgba(149, 164, 220, 0.5);
-$shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.3);
+// Shadows & Glows - Enhanced
+$glow-pink: 0 0 30px rgba(255, 0, 110, 0.8), 0 0 60px rgba(255, 0, 110, 0.4);
+$glow-cyan: 0 0 30px rgba(0, 245, 255, 0.8), 0 0 60px rgba(0, 245, 255, 0.4);
+$glow-purple: 0 0 30px rgba(139, 0, 255, 0.8), 0 0 60px rgba(139, 0, 255, 0.4);
+$shadow-dark: 0 8px 32px rgba(0, 0, 0, 0.6);
+
+// LED effects
+$led-pink: 0 0 10px $neon-pink, 0 0 20px $neon-pink, 0 0 40px $neon-pink;
+$led-cyan: 0 0 10px $neon-cyan, 0 0 20px $neon-cyan, 0 0 40px $neon-cyan;
+$led-purple: 0 0 10px $neon-purple, 0 0 20px $neon-purple, 0 0 40px $neon-purple;
 
 // Transitions
 $transition-fast: 0.2s ease;
