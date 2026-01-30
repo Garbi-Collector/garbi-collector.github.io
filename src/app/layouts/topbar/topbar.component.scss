@@ -9,7 +9,7 @@
   z-index: 1000;
   transition: all $transition-medium;
 
-  // Efectos de fondo - OPTIMIZADO
+  // Efectos de fondo
   .topbar-bg {
     position: absolute;
     top: 0;
@@ -26,10 +26,9 @@
       height: 100%;
       background: linear-gradient(
           180deg,
-          rgba($primary-darker, 0.97) 0%, // ✅ Aumentada opacidad
+          rgba($primary-darker, 0.97) 0%,
           rgba($primary-dark, 0.95) 100%
       );
-      // ✅ ELIMINADO backdrop-filter: blur(10px) - muy costoso en performance
       transition: all $transition-medium;
     }
 
@@ -40,10 +39,10 @@
       width: 100%;
       height: 100%;
       background-image:
-        linear-gradient(rgba($neon-cyan, 0.02) 1px, transparent 1px), // ✅ Reducido de 0.03
+        linear-gradient(rgba($neon-cyan, 0.02) 1px, transparent 1px),
         linear-gradient(90deg, rgba($neon-cyan, 0.02) 1px, transparent 1px);
       background-size: 20px 20px;
-      opacity: 0.4; // ✅ Reducido de 0.5
+      opacity: 0.4;
     }
 
     .topbar-scanline {
@@ -58,9 +57,9 @@
           $neon-cyan 50%,
           transparent 100%
       );
-      box-shadow: 0 0 8px $neon-cyan; // ✅ Reducido blur
-      animation: scanline-move 10s linear infinite; // ✅ Ralentizado de 8s a 10s
-      will-change: transform; // ✅ Optimización GPU
+      box-shadow: 0 0 8px $neon-cyan;
+      animation: scanline-move 10s linear infinite;
+      will-change: transform;
     }
   }
 
@@ -74,9 +73,15 @@
     display: flex;
     align-items: center;
     gap: $spacing-xl;
+
+    @media (max-width: 768px) {
+      padding: 0 $spacing-md;
+      gap: $spacing-md;
+      justify-content: space-between;
+    }
   }
 
-  // Brand / Logo - OPTIMIZADO
+  // Brand / Logo
   .topbar-brand {
     display: flex;
     align-items: center;
@@ -87,13 +92,13 @@
     cursor: pointer;
     position: relative;
     transition: all $transition-medium;
-    will-change: transform; // ✅ Optimización GPU
+    will-change: transform;
 
     .brand-bracket {
       color: $neon-pink;
       font-size: 2rem;
-      text-shadow: 0 0 8px $neon-pink; // ✅ Simplificado
-      animation: bracket-pulse 3s ease-in-out infinite; // ✅ Ralentizado de 2s a 3s
+      text-shadow: 0 0 8px $neon-pink;
+      animation: bracket-pulse 3s ease-in-out infinite;
       transition: all $transition-medium;
     }
 
@@ -108,8 +113,8 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        animation: gradient-shift 4s ease infinite; // ✅ Ralentizado
-        filter: drop-shadow(0 0 8px rgba($neon-cyan, 0.4)); // ✅ Reducido blur
+        animation: gradient-shift 4s ease infinite;
+        filter: drop-shadow(0 0 8px rgba($neon-cyan, 0.4));
       }
 
       .brand-cursor {
@@ -125,7 +130,7 @@
       transform: translate(-50%, -50%);
       width: 150%;
       height: 150%;
-      background: radial-gradient(circle, rgba($neon-pink, 0.15) 0%, transparent 70%); // ✅ Reducida opacidad
+      background: radial-gradient(circle, rgba($neon-pink, 0.15) 0%, transparent 70%);
       border-radius: 50%;
       opacity: 0;
       transition: opacity $transition-medium;
@@ -145,9 +150,17 @@
         animation: glow-pulse 2s ease-in-out infinite;
       }
     }
+
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+
+      .brand-bracket {
+        font-size: 1.5rem;
+      }
+    }
   }
 
-  // Línea divisoria decorativa - OPTIMIZADO
+  // Línea divisoria decorativa
   .topbar-divider {
     flex: 1;
     height: 2px;
@@ -172,10 +185,10 @@
           $neon-purple 80%,
           transparent 100%
       );
-      box-shadow: 0 0 8px rgba($neon-cyan, 0.4); // ✅ Reducido blur
+      box-shadow: 0 0 8px rgba($neon-cyan, 0.4);
       opacity: 0.3;
-      animation: divider-flow 5s linear infinite; // ✅ Ralentizado de 4s a 5s
-      will-change: background-position; // ✅ Optimización GPU
+      animation: divider-flow 5s linear infinite;
+      will-change: background-position;
     }
 
     .divider-dot {
@@ -187,28 +200,190 @@
       height: 6px;
       border-radius: 50%;
       background: $neon-pink;
-      box-shadow: 0 0 8px $neon-pink; // ✅ Reducido blur
-      animation: dot-slide 5s linear infinite; // ✅ Ralentizado
-      will-change: left; // ✅ Optimización GPU
+      box-shadow: 0 0 8px $neon-pink;
+      animation: dot-slide 5s linear infinite;
+      will-change: left;
     }
   }
 
-  // Navegación
-  .topbar-nav {
+  // Navegación Desktop
+  .desktop-nav {
     display: flex;
     align-items: center;
     gap: $spacing-sm;
 
-    @media (max-width: 768px) {
+    @media (max-width: 968px) {
+      display: none; // ✅ Ocultar en tablets y móviles
+    }
+  }
+
+  // ✅ BOTÓN HAMBURGUESA (MÓVIL)
+  .mobile-menu-btn {
+    display: none;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 2px solid $neon-cyan;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all $transition-medium;
+    z-index: 1001;
+
+    @media (max-width: 968px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .hamburger-line {
+      width: 24px;
+      height: 2px;
+      background: $neon-cyan;
+      box-shadow: 0 0 5px $neon-cyan;
+      transition: all $transition-medium;
+      transform-origin: center;
+    }
+
+    .btn-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba($neon-cyan, 0.3) 0%, transparent 70%);
+      border-radius: 4px;
+      opacity: 0;
+      transition: opacity $transition-medium;
+    }
+
+    &:hover {
+      border-color: $neon-pink;
+      transform: scale(1.05);
+
+      .hamburger-line {
+        background: $neon-pink;
+        box-shadow: 0 0 8px $neon-pink;
+      }
+
+      .btn-glow {
+        opacity: 1;
+      }
+    }
+
+    // Estado activo (menú abierto)
+    &.active {
+      border-color: $neon-pink;
+
+      .line-1 {
+        transform: translateY(7px) rotate(45deg);
+        background: $neon-pink;
+      }
+
+      .line-2 {
+        opacity: 0;
+      }
+
+      .line-3 {
+        transform: translateY(-7px) rotate(-45deg);
+        background: $neon-pink;
+      }
+    }
+  }
+
+  // ✅ MENÚ MÓVIL
+  .mobile-menu {
+    position: fixed;
+    top: 80px;
+    right: -100%;
+    width: 280px;
+    height: calc(100vh - 80px);
+    transition: right $transition-slow;
+    z-index: 999;
+
+    @media (max-width: 968px) {
+      &.open {
+        right: 0;
+      }
+    }
+
+    @media (min-width: 969px) {
+      display: none;
+    }
+
+    .mobile-menu-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+          180deg,
+          rgba($primary-dark, 0.98) 0%,
+          rgba($primary-darker, 0.98) 100%
+      );
+      border-left: 2px solid $neon-cyan;
+      box-shadow: -8px 0 32px rgba(0, 0, 0, 0.8);
+    }
+
+    .mobile-menu-content {
+      position: relative;
+      height: 100%;
+      padding: $spacing-lg $spacing-md;
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-sm;
+      overflow-y: auto;
+
+      // Hacer los botones más grandes en móvil
+      app-nav-button {
+        width: 100%;
+
+        ::ng-deep .nav-button {
+          width: 100%;
+          justify-content: flex-start;
+          padding: $spacing-md;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  // ✅ OVERLAY PARA CERRAR MENÚ
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity $transition-medium;
+    z-index: 998;
+
+    &.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (min-width: 969px) {
       display: none;
     }
   }
 
-  // Decoraciones LED - OPTIMIZADO
+  // Decoraciones LED
   .topbar-decorations {
     display: flex;
     gap: $spacing-xs;
     align-items: center;
+
+    @media (max-width: 968px) {
+      display: none; // ✅ Ocultar en móvil para ahorrar espacio
+    }
 
     .led-indicator {
       width: 8px;
@@ -225,17 +400,17 @@
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        animation: led-blink 3s ease-in-out infinite; // ✅ Ralentizado de 2s a 3s
-        will-change: opacity, transform; // ✅ Optimización GPU
+        animation: led-blink 3s ease-in-out infinite;
+        will-change: opacity, transform;
       }
 
       &.led-1 {
         background: $neon-cyan;
-        box-shadow: 0 0 8px $neon-cyan; // ✅ Reducido blur
+        box-shadow: 0 0 8px $neon-cyan;
 
         &::before {
           background: $neon-cyan;
-          box-shadow: 0 0 12px $neon-cyan; // ✅ Reducido blur
+          box-shadow: 0 0 12px $neon-cyan;
           animation-delay: 0s;
         }
       }
@@ -278,15 +453,15 @@
         $neon-purple 100%
     );
     background-size: 200% 200%;
-    box-shadow: 0 0 8px rgba($neon-cyan, 0.4); // ✅ Reducido blur
-    animation: gradient-shift 6s ease infinite; // ✅ Ralentizado de 5s a 6s
-    will-change: background-position; // ✅ Optimización GPU
+    box-shadow: 0 0 8px rgba($neon-cyan, 0.4);
+    animation: gradient-shift 6s ease infinite;
+    will-change: background-position;
   }
 
   // Estado cuando se hace scroll
   &.scrolled {
     height: 70px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8); // ✅ Reducido blur
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
 
     .topbar-bg .topbar-gradient {
       background: linear-gradient(
@@ -296,24 +471,26 @@
       );
     }
 
-    .topbar-brand {
-      font-size: 1.3rem;
+    .mobile-menu {
+      top: 70px;
+      height: calc(100vh - 70px);
+    }
 
-      .brand-bracket {
-        font-size: 1.8rem;
+    @media (max-width: 768px) {
+      height: 60px;
+
+      .mobile-menu {
+        top: 60px;
+        height: calc(100vh - 60px);
       }
     }
   }
 }
 
-// Animaciones - OPTIMIZADAS
+// Animaciones
 @keyframes scanline-move {
-  0% {
-    left: -100%;
-  }
-  100% {
-    left: 100%;
-  }
+  0% { left: -100%; }
+  100% { left: 100%; }
 }
 
 @keyframes bracket-pulse {
@@ -322,36 +499,24 @@
     transform: scale(1);
   }
   50% {
-    opacity: 0.8; // ✅ Menos contraste
-    transform: scale(1.05); // ✅ Menos movimiento
+    opacity: 0.8;
+    transform: scale(1.05);
   }
 }
 
 @keyframes cursor-blink {
-  0%, 49% {
-    opacity: 1;
-  }
-  50%, 100% {
-    opacity: 0;
-  }
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
 
 @keyframes divider-flow {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 200% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
 }
 
 @keyframes dot-slide {
-  0% {
-    left: 0%;
-  }
-  100% {
-    left: 100%;
-  }
+  0% { left: 0%; }
+  100% { left: 100%; }
 }
 
 @keyframes led-blink {
@@ -360,43 +525,19 @@
     transform: translate(-50%, -50%) scale(1);
   }
   50% {
-    opacity: 0.4; // ✅ Menos contraste
-    transform: translate(-50%, -50%) scale(1.3); // ✅ Menos movimiento
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1.3);
   }
 }
 
 @keyframes glow-pulse {
   0%, 100% {
-    opacity: 0.6; // ✅ Menos contraste
+    opacity: 0.6;
     transform: translate(-50%, -50%) scale(1);
   }
   50% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1.15); // ✅ Menos movimiento
-  }
-}
-
-// Responsive
-@media (max-width: 768px) {
-  .topbar {
-    height: 60px;
-
-    &.scrolled {
-      height: 55px;
-    }
-
-    .topbar-container {
-      justify-content: space-between;
-      padding: 0 $spacing-md;
-    }
-
-    .topbar-brand {
-      font-size: 1.2rem;
-
-      .brand-bracket {
-        font-size: 1.5rem;
-      }
-    }
+    transform: translate(-50%, -50%) scale(1.15);
   }
 }
 

@@ -11,6 +11,7 @@ import {NavButtonComponent} from "../../components/nav-button/nav-button.compone
 })
 export class TopbarComponent {
   isScrolled = false;
+  isMobileMenuOpen = false; // ✅ Estado del menú móvil
 
   navItems = [
     { label: 'Home', route: '/', icon: '⌂' },
@@ -24,5 +25,13 @@ export class TopbarComponent {
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isScrolled = window.scrollY > 50;
+  }
+
+  toggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  closeMobileMenu() {
+    this.isMobileMenuOpen = false;
   }
 }

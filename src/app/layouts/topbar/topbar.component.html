@@ -1,4 +1,4 @@
-<header class="topbar" [class.scrolled]="isScrolled">
+<header class="topbar" [class.scrolled]="isScrolled" [class.menu-open]="isMobileMenuOpen">
   <!-- Efectos de fondo -->
   <div class="topbar-bg">
     <div class="topbar-gradient"></div>
@@ -18,14 +18,14 @@
       <div class="brand-glow"></div>
     </div>
 
-    <!-- Línea decorativa central -->
+    <!-- Línea decorativa central (solo desktop) -->
     <div class="topbar-divider">
       <div class="divider-line"></div>
       <div class="divider-dot"></div>
     </div>
 
-    <!-- Navegación -->
-    <div class="topbar-nav">
+    <!-- Navegación Desktop -->
+    <div class="topbar-nav desktop-nav">
       <app-nav-button
         *ngFor="let item of navItems"
         [label]="item.label"
@@ -34,6 +34,18 @@
       </app-nav-button>
     </div>
 
+    <!-- Botón Hamburguesa (solo móvil) -->
+    <button
+      class="mobile-menu-btn"
+      (click)="toggleMobileMenu()"
+      [class.active]="isMobileMenuOpen"
+      aria-label="Toggle menu">
+      <span class="hamburger-line line-1"></span>
+      <span class="hamburger-line line-2"></span>
+      <span class="hamburger-line line-3"></span>
+      <div class="btn-glow"></div>
+    </button>
+
     <!-- Decoraciones LED -->
     <div class="topbar-decorations">
       <div class="led-indicator led-1"></div>
@@ -41,6 +53,27 @@
       <div class="led-indicator led-3"></div>
     </div>
   </nav>
+
+  <!-- Menú Móvil -->
+  <div class="mobile-menu" [class.open]="isMobileMenuOpen">
+    <div class="mobile-menu-bg"></div>
+    <div class="mobile-menu-content">
+      <app-nav-button
+        *ngFor="let item of navItems"
+        [label]="item.label"
+        [route]="item.route"
+        [icon]="item.icon"
+        (click)="closeMobileMenu()">
+      </app-nav-button>
+    </div>
+  </div>
+
+  <!-- Overlay para cerrar menú al hacer click fuera -->
+  <div
+    class="mobile-menu-overlay"
+    [class.visible]="isMobileMenuOpen"
+    (click)="closeMobileMenu()">
+  </div>
 
   <!-- Borde inferior con efecto LED -->
   <div class="topbar-border"></div>

@@ -1,5 +1,99 @@
 @use 'theme' as *;
 
+/* ✅ ARCHIVO PARA AGREGAR AL INICIO DE styles.scss */
+
+// ==========================================
+// FIX PARA OVERFLOW HORIZONTAL EN MÓVIL
+// ==========================================
+
+html, body {
+  width: 100%;
+  overflow-x: hidden; // ✅ Evitar scroll horizontal
+  position: relative;
+}
+
+body {
+  max-width: 100vw; // ✅ No exceder el viewport width
+}
+
+// Aplicar a todos los elementos principales
+* {
+  box-sizing: border-box;
+}
+
+// Contenedores principales
+.container,
+section,
+header,
+main,
+footer {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+// ==========================================
+// FIX PARA ELEMENTOS QUE SE SALEN DEL VIEWPORT
+// ==========================================
+
+// Asegurar que ningún elemento hijo se salga del viewport
+* {
+  max-width: 100%;
+
+  &::before,
+  &::after {
+    max-width: 100%;
+  }
+}
+
+// ==========================================
+// MEJORAS DE PERFORMANCE PARA MÓVIL
+// ==========================================
+
+// Smooth scrolling
+html {
+  scroll-behavior: smooth;
+}
+
+// Optimización táctil
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+// Mejorar renderizado de fuentes
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+// ==========================================
+// RESPONSIVE UTILITIES
+// ==========================================
+
+// Ocultar elementos en móvil si es necesario
+.hide-mobile {
+  @media (max-width: 768px) {
+    display: none !important;
+  }
+}
+
+// Ocultar elementos en desktop si es necesario
+.hide-desktop {
+  @media (min-width: 769px) {
+    display: none !important;
+  }
+}
+
+// Padding responsive para contenedores
+.responsive-padding {
+  padding: 2rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
