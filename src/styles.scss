@@ -1,43 +1,70 @@
 @use 'theme' as *;
 
-/* ✅ ARCHIVO PARA AGREGAR AL INICIO DE styles.scss */
+// ==========================================
+// VARIABLES LOCALES
+// ==========================================
+$mobile-breakpoint: 768px;
+$grid-opacity: 0.05;
+$fog-opacity-high: 0.08;
+$fog-opacity-low: 0.05;
 
 // ==========================================
-// FIX PARA OVERFLOW HORIZONTAL EN MÓVIL
+// MIXINS REUTILIZABLES
 // ==========================================
 
-html, body {
-  width: 100%;
-  overflow-x: hidden; // ✅ Evitar scroll horizontal
-  position: relative;
+// Mixin para resetear márgenes y padding
+@mixin reset-spacing {
+  margin: 0;
+  padding: 0;
 }
 
-body {
-  max-width: 100vw; // ✅ No exceder el viewport width
-}
-
-// Aplicar a todos los elementos principales
-* {
-  box-sizing: border-box;
-}
-
-// Contenedores principales
-.container,
-section,
-header,
-main,
-footer {
+// Mixin para prevenir overflow
+@mixin prevent-overflow {
   max-width: 100%;
   overflow-x: hidden;
 }
 
-// ==========================================
-// FIX PARA ELEMENTOS QUE SE SALEN DEL VIEWPORT
-// ==========================================
+// Mixin para optimización de fuentes
+@mixin font-optimization {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
 
-// Asegurar que ningún elemento hijo se salga del viewport
+// Mixin para optimización táctil
+@mixin touch-optimization {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+// Mixin para capa de fondo fija
+@mixin fixed-background-layer {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+// Mixin para responsive padding
+@mixin responsive-padding($desktop: 2rem, $mobile: 1rem) {
+  padding: $desktop;
+
+  @media (max-width: $mobile-breakpoint) {
+    padding: $mobile;
+  }
+}
+
+// ==========================================
+// RESET GLOBAL
+// ==========================================
 * {
-  max-width: 100%;
+  @include reset-spacing;
+  box-sizing: border-box;
+  user-select: none;
 
   &::before,
   &::after {
@@ -46,111 +73,71 @@ footer {
 }
 
 // ==========================================
-// MEJORAS DE PERFORMANCE PARA MÓVIL
+// HTML & BODY BASE
 // ==========================================
-
-// Smooth scrolling
 html {
+  width: 100%;
+  position: relative;
   scroll-behavior: smooth;
-}
-
-// Optimización táctil
-* {
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-}
-
-// Mejorar renderizado de fuentes
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-// ==========================================
-// RESPONSIVE UTILITIES
-// ==========================================
-
-// Ocultar elementos en móvil si es necesario
-.hide-mobile {
-  @media (max-width: 768px) {
-    display: none !important;
-  }
-}
-
-// Ocultar elementos en desktop si es necesario
-.hide-desktop {
-  @media (min-width: 769px) {
-    display: none !important;
-  }
-}
-
-// Padding responsive para contenedores
-.responsive-padding {
-  padding: 2rem;
-
-  @media (max-width: 768px) {
-    padding: 1rem;
-  }
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  user-select: none;
+  @include prevent-overflow;
 }
 
 body {
+  width: 100%;
+  max-width: 100vw;
   font-family: 'Roboto', 'Segoe UI', sans-serif;
   background: $background-primary;
   color: $text-primary;
-  overflow-x: hidden;
   position: relative;
+  @include prevent-overflow;
+  @include font-optimization;
 
-  // ✅ Grid simplificado - sin animación pesada
+  // Grid de fondo estático
   &::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    @include fixed-background-layer;
     background-image:
-      linear-gradient(rgba(0, 245, 255, 0.05) 1px, transparent 1px), // ✅ Reducido de 0.1 a 0.05
-      linear-gradient(90deg, rgba(0, 245, 255, 0.05) 1px, transparent 1px);
+      linear-gradient(rgba(0, 245, 255, $grid-opacity) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 245, 255, $grid-opacity) 1px, transparent 1px);
     background-size: 40px 40px;
-    pointer-events: none;
-    z-index: -1;
-    // ✅ Eliminada animación grid-pulse (pesada)
   }
 
-  // ✅ Niebla estática - sin animación
+  // Niebla de fondo estática
   &::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    @include fixed-background-layer;
     background:
-      radial-gradient(circle at 20% 30%, rgba(255, 0, 110, 0.08) 0%, transparent 40%), // ✅ Reducida opacidad
-      radial-gradient(circle at 80% 70%, rgba(0, 245, 255, 0.08) 0%, transparent 40%),
-      radial-gradient(circle at 50% 50%, rgba(139, 0, 255, 0.05) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: -1;
-    // ✅ Eliminada animación fog-move (muy pesada)
+      radial-gradient(circle at 20% 30%, rgba(255, 0, 110, $fog-opacity-high) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(0, 245, 255, $fog-opacity-high) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(139, 0, 255, $fog-opacity-low) 0%, transparent 50%);
   }
 }
 
-// ✅ Scrollbar optimizado
+// ==========================================
+// CONTENEDORES PRINCIPALES
+// ==========================================
+.container,
+section,
+header,
+main,
+footer {
+  @include prevent-overflow;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+}
+
+// ==========================================
+// SCROLLBAR PERSONALIZADO
+// ==========================================
 ::-webkit-scrollbar {
-  width: 10px; // ✅ Reducido de 12px a 10px
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
   background: $primary-dark;
-  border-left: 1px solid rgba(0, 245, 255, 0.2); // ✅ Reducida opacidad
+  border-left: 1px solid rgba(0, 245, 255, 0.2);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -158,14 +145,57 @@ body {
   background-size: 200% 200%;
   border-radius: 6px;
   border: 2px solid $primary-dark;
-  box-shadow: 0 0 5px rgba(0, 245, 255, 0.5); // ✅ Simplificado
-  animation: gradient-shift 4s ease infinite; // ✅ Ralentizado de 3s a 4s
+  box-shadow: 0 0 5px rgba(0, 245, 255, 0.5);
+  animation: gradient-shift 4s ease infinite;
 
   &:hover {
-    box-shadow: 0 0 8px rgba(255, 0, 110, 0.6); // ✅ Simplificado
+    box-shadow: 0 0 8px rgba(255, 0, 110, 0.6);
   }
 }
 
+// ==========================================
+// UTILIDADES
+// ==========================================
+
+// Texto con gradiente animado
+.text-gradient {
+  background: $gradient-neon;
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 4s ease infinite;
+}
+
+// Padding responsive
+.responsive-padding {
+  @include responsive-padding;
+}
+
+// Ocultar en móvil
+.hide-mobile {
+  @media (max-width: $mobile-breakpoint) {
+    display: none !important;
+  }
+}
+
+// Ocultar en desktop
+.hide-desktop {
+  @media (min-width: #{$mobile-breakpoint + 1px}) {
+    display: none !important;
+  }
+}
+
+// Optimización táctil global
+* {
+  @include touch-optimization;
+}
+
+// ==========================================
+// ANIMACIONES GLOBALES
+// ==========================================
+
+// Animación de gradiente
 @keyframes gradient-shift {
   0%, 100% {
     background-position: 0% 50%;
@@ -175,14 +205,14 @@ body {
   }
 }
 
-// ✅ Animaciones globales optimizadas
+// Efecto glitch
 @keyframes glitch {
-  0% {
+  0%, 100% {
     transform: translate(0);
-    text-shadow: 0 0 8px $neon-cyan; // ✅ Reducido blur
+    text-shadow: 0 0 8px $neon-cyan;
   }
   20% {
-    transform: translate(-2px, 2px); // ✅ Reducido movimiento
+    transform: translate(-2px, 2px);
     text-shadow: -2px 0 8px $neon-pink, 2px 0 8px $neon-cyan;
   }
   40% {
@@ -197,60 +227,43 @@ body {
     transform: translate(2px, -2px);
     text-shadow: 2px 0 8px $neon-cyan, -2px 0 8px $neon-pink;
   }
-  100% {
-    transform: translate(0);
-    text-shadow: 0 0 8px $neon-cyan;
-  }
 }
 
+// Pulso de neón
 @keyframes neon-pulse {
   0%, 100% {
-    filter: drop-shadow(0 0 5px currentColor); // ✅ Reducido blur
+    filter: drop-shadow(0 0 5px currentColor);
   }
   50% {
-    filter: drop-shadow(0 0 15px currentColor) // ✅ Reducido blur
-    drop-shadow(0 0 25px currentColor);
+    filter: drop-shadow(0 0 15px currentColor) drop-shadow(0 0 25px currentColor);
   }
 }
 
+// Flotación
 @keyframes float {
   0%, 100% {
     transform: translateY(0) rotate(0deg);
   }
   50% {
-    transform: translateY(-15px) rotate(180deg); // ✅ Reducido de -20px a -15px
+    transform: translateY(-15px) rotate(180deg);
   }
 }
 
+// Parpadeo LED
 @keyframes led-flicker {
   0%, 100% {
     opacity: 1;
   }
   50% {
-    opacity: 0.85; // ✅ Menos contraste
+    opacity: 0.85;
   }
 }
 
-// Utilidades
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 $spacing-md;
-}
+// ==========================================
+// ACCESIBILIDAD
+// ==========================================
 
-.text-gradient {
-  background: $gradient-neon;
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradient-shift 4s ease infinite; // ✅ Ralentizado
-}
-
-// ✅ ELIMINADA la sección .led-particles duplicada que estaba en styles.scss
-// Ahora solo existe en background.component.scss
-
-// ✅ Media query para performance
+// Reducir movimiento para usuarios con preferencias de accesibilidad
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
