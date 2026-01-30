@@ -5,14 +5,76 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 80px $spacing-xl $spacing-xl;
+  padding: $spacing-xl 0;
   position: relative;
-  z-index: 1;
-  overflow-x: hidden; // ✅ Evitar scroll horizontal
-  width: 100%; // ✅ Asegurar que no se desborde
 
-  @media (max-width: 768px) {
-    padding: 70px $spacing-md $spacing-md; // ✅ Reducir padding
+
+
+  @keyframes cube-rise {
+    0%, 100% {
+      transform: translateZ(0) rotateX(0deg);
+    }
+    50% {
+      transform: translateZ(30px) rotateX(10deg);
+    }
+  }
+
+  @keyframes glow-cyan-border {
+    0%, 100% {
+      border-color: rgba(0, 245, 255, 0);
+      box-shadow:
+        inset 0 0 0 rgba(0, 245, 255, 0),
+        0 0 0 rgba(0, 245, 255, 0);
+    }
+    50% {
+      border-color: rgba(0, 245, 255, 0.8);
+      box-shadow:
+        inset 0 0 20px rgba(0, 245, 255, 0.6),
+        0 0 20px rgba(0, 245, 255, 0.8),
+        0 0 40px rgba(0, 245, 255, 0.4);
+    }
+  }
+
+  @keyframes glow-pink-border {
+    0%, 100% {
+      border-color: rgba(255, 0, 110, 0);
+      box-shadow:
+        inset 0 0 0 rgba(255, 0, 110, 0),
+        0 0 0 rgba(255, 0, 110, 0);
+    }
+    50% {
+      border-color: rgba(255, 0, 110, 0.8);
+      box-shadow:
+        inset 0 0 20px rgba(255, 0, 110, 0.6),
+        0 0 20px rgba(255, 0, 110, 0.8),
+        0 0 40px rgba(255, 0, 110, 0.4);
+    }
+  }
+
+  @keyframes glow-purple-border {
+    0%, 100% {
+      border-color: rgba(139, 0, 255, 0);
+      box-shadow:
+        inset 0 0 0 rgba(139, 0, 255, 0),
+        0 0 0 rgba(139, 0, 255, 0);
+    }
+    50% {
+      border-color: rgba(139, 0, 255, 0.8);
+      box-shadow:
+        inset 0 0 20px rgba(139, 0, 255, 0.6),
+        0 0 20px rgba(139, 0, 255, 0.8),
+        0 0 40px rgba(139, 0, 255, 0.4);
+    }
+  }
+
+
+  @keyframes scan-move {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(100px);
+    }
   }
 }
 
@@ -23,8 +85,6 @@
   align-items: center;
   position: relative;
   z-index: 2;
-  width: 100%; // ✅ Controlar ancho
-  max-width: 1400px; // ✅ Limitar ancho máximo
 
   @media (max-width: 968px) {
     grid-template-columns: 1fr;
@@ -41,7 +101,6 @@
   height: 100%;
   pointer-events: none;
   z-index: 1;
-  overflow: hidden; // ✅ Evitar que los elementos se salgan
 
   .cyber-line {
     position: absolute;
@@ -68,11 +127,6 @@
       top: 10%;
       left: 10%;
       animation: float 4s ease-in-out infinite, gradient-shift 3s ease infinite;
-
-      @media (max-width: 768px) {
-        height: 100px; // ✅ Reducir tamaño
-        left: 5%;
-      }
     }
 
     &.line-2 {
@@ -81,11 +135,6 @@
       top: 60%;
       right: 15%;
       animation: float 5s ease-in-out infinite 1s, gradient-shift 3s ease infinite;
-
-      @media (max-width: 768px) {
-        width: 80px; // ✅ Reducir tamaño
-        right: 5%;
-      }
 
       .led-strip {
         background: linear-gradient(90deg,
@@ -102,11 +151,6 @@
       bottom: 15%;
       right: 20%;
       animation: float 6s ease-in-out infinite 2s, gradient-shift 3s ease infinite;
-
-      @media (max-width: 768px) {
-        height: 80px; // ✅ Reducir tamaño
-        right: 10%;
-      }
 
       .led-strip {
         background: linear-gradient(180deg,
@@ -140,12 +184,7 @@
     border: 3px solid $neon-cyan;
     box-shadow: $led-cyan;
     animation: corner-pulse 2s ease-in-out infinite;
-
-    @media (max-width: 768px) {
-      width: 30px; // ✅ Reducir tamaño
-      height: 30px;
-      border-width: 2px;
-    }
+    z-index: -4;
 
     &::before,
     &::after {
@@ -158,21 +197,11 @@
     &::before {
       width: 15px;
       height: 3px;
-
-      @media (max-width: 768px) {
-        width: 10px;
-        height: 2px;
-      }
     }
 
     &::after {
       width: 3px;
       height: 15px;
-
-      @media (max-width: 768px) {
-        width: 2px;
-        height: 10px;
-      }
     }
 
     &.corner-1 {
@@ -180,6 +209,7 @@
       left: 5%;
       border-right: none;
       border-bottom: none;
+
       &::before { top: 0; left: 0; }
       &::after { top: 0; left: 0; }
     }
@@ -192,6 +222,7 @@
       border-color: $neon-pink;
       box-shadow: $led-pink;
       animation-delay: 0.5s;
+
       &::before { top: 0; right: 0; background: $neon-pink; box-shadow: $led-pink; }
       &::after { top: 0; right: 0; background: $neon-pink; box-shadow: $led-pink; }
     }
@@ -204,6 +235,7 @@
       border-color: $neon-purple;
       box-shadow: $led-purple;
       animation-delay: 1s;
+
       &::before { bottom: 0; left: 0; background: $neon-purple; box-shadow: $led-purple; }
       &::after { bottom: 0; left: 0; background: $neon-purple; box-shadow: $led-purple; }
     }
@@ -214,6 +246,7 @@
       border-left: none;
       border-top: none;
       animation-delay: 1.5s;
+
       &::before { bottom: 0; right: 0; }
       &::after { bottom: 0; right: 0; }
     }
@@ -234,13 +267,6 @@
 // Contenido del héroe
 .hero-content {
   animation: fadeInUp 1s ease;
-  width: 100%; // ✅ Controlar ancho
-  max-width: 600px; // ✅ Limitar ancho
-  overflow: hidden; // ✅ Evitar desbordamiento
-
-  @media (max-width: 968px) {
-    max-width: 100%; // ✅ Usar todo el ancho en móvil
-  }
 }
 
 .greeting {
@@ -250,13 +276,10 @@
   font-family: 'Courier New', monospace;
   animation: neon-flicker 3s ease-in-out infinite;
 
-  @media (max-width: 768px) {
-    font-size: 1rem; // ✅ Reducir tamaño
-  }
-
   .bracket {
     color: $neon-pink;
     font-weight: bold;
+
     &.glow-effect {
       text-shadow: $led-pink;
       animation: led-flicker 2s ease-in-out infinite;
@@ -269,18 +292,23 @@
 }
 
 @keyframes neon-flicker {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.95; }
-  75% { opacity: 0.9; }
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.95;
+  }
+  75% {
+    opacity: 0.9;
+  }
 }
 
 .name {
-  font-size: clamp(2rem, 8vw, 5rem); // ✅ Responsive con clamp
+  font-size: clamp(2.5rem, 8vw, 5rem);
   font-weight: 900;
   margin: $spacing-sm 0;
   position: relative;
   display: inline-block;
-  word-break: break-word; // ✅ Evitar overflow de texto largo
 
   .name-text {
     position: relative;
@@ -329,7 +357,7 @@
 }
 
 .title {
-  font-size: clamp(1.2rem, 4vw, 2.5rem); // ✅ Responsive con clamp
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 700;
   color: $text-primary;
   font-family: 'Courier New', monospace;
@@ -338,6 +366,7 @@
   .cursor-bracket {
     color: $neon-cyan;
     font-weight: bold;
+
     &.glow-effect {
       text-shadow: 0 0 5px $neon-cyan;
     }
@@ -345,6 +374,7 @@
 
   .typed-text {
     color: $text-primary;
+
     .neon-text {
       color: $neon-pink;
       text-shadow: 0 0 8px rgba(255, 0, 110, 0.4);
@@ -364,21 +394,18 @@
 }
 
 .description {
-  font-size: clamp(0.9rem, 2vw, 1.1rem); // ✅ Responsive
+  font-size: 1.1rem;
   line-height: 1.8;
   color: rgba($text-primary, 0.9);
   margin: $spacing-lg 0;
   max-width: 600px;
-
-  @media (max-width: 768px) {
-    line-height: 1.6; // ✅ Reducir line-height
-  }
 
   .highlight {
     font-weight: 600;
     position: relative;
     display: inline-block;
 
+    // Neón sutil para mejor legibilidad
     &.subtle-pink {
       color: lighten($neon-pink, 10%);
       text-shadow: 0 0 5px rgba(255, 0, 110, 0.3);
@@ -429,6 +456,7 @@
     .slash {
       color: $neon-pink;
       margin-right: $spacing-xs;
+
       &.glow-effect {
         text-shadow: $led-pink;
       }
@@ -451,7 +479,6 @@
     display: flex;
     gap: $spacing-md;
     margin-top: $spacing-md;
-    flex-wrap: wrap; // ✅ Permitir que se envuelvan en móvil
   }
 }
 
@@ -461,54 +488,44 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 100%; // ✅ Controlar ancho
-  max-width: 500px; // ✅ Limitar tamaño máximo
-  margin: 0 auto; // ✅ Centrar
 
   @media (max-width: 968px) {
     order: -1;
-    margin-bottom: $spacing-lg;
-  }
-
-  @media (max-width: 768px) {
-    max-width: 350px; // ✅ Reducir en móvil
   }
 }
 
 .avatar-container {
   position: relative;
-  width: 100%;
-  padding-bottom: 100%; // ✅ Mantener aspect ratio 1:1
+  width: 450px;
+  height: 450px;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  // Hacer todos los elementos hijos absolutos para mantener el aspect ratio
-  > * {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  @media (max-width: 768px) {
+    width: 350px;
+    height: 350px;
   }
 }
 
 // Anillos orbitales LED
 .orbital-ring {
+  position: absolute;
   border: 2px solid;
   border-radius: 50%;
   animation: rotate 20s linear infinite;
 
   &.ring-1 {
-    width: 90%;
-    height: 90%;
+    width: 400px;
+    height: 400px;
     border-color: $neon-pink transparent $neon-pink transparent;
     box-shadow: $led-pink;
     animation-duration: 15s;
   }
 
   &.ring-2 {
-    width: 80%;
-    height: 80%;
+    width: 350px;
+    height: 350px;
     border-color: transparent $neon-cyan transparent $neon-cyan;
     box-shadow: $led-cyan;
     animation-duration: 20s;
@@ -516,22 +533,29 @@
   }
 
   &.ring-3 {
-    width: 70%;
-    height: 70%;
+    width: 300px;
+    height: 300px;
     border-color: $neon-purple transparent $neon-purple transparent;
     box-shadow: $led-purple;
     animation-duration: 25s;
   }
+
+  @media (max-width: 768px) {
+    &.ring-1 { width: 320px; height: 320px; }
+    &.ring-2 { width: 280px; height: 280px; }
+    &.ring-3 { width: 240px; height: 240px; }
+  }
 }
 
 @keyframes rotate {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .avatar-frame {
-  width: 65%;
-  height: 65%;
+  position: relative;
+  width: 280px;
+  height: 280px;
   border: 3px solid;
   border-image: $gradient-neon 1;
   border-radius: 50%;
@@ -539,6 +563,7 @@
   justify-content: center;
   align-items: center;
   background: radial-gradient(circle, rgba(139, 0, 255, 0.2) 0%, rgba(10, 0, 21, 0.8) 70%);
+  backdrop-filter: blur(10px);
   box-shadow:
     inset 0 0 30px rgba(255, 0, 110, 0.3),
     inset 0 0 60px rgba(0, 245, 255, 0.2),
@@ -546,6 +571,12 @@
   animation: frame-pulse 3s ease-in-out infinite;
   overflow: hidden;
 
+  @media (max-width: 768px) {
+    width: 220px;
+    height: 220px;
+  }
+
+  // Efecto de escaneo
   .scan-effect {
     position: absolute;
     top: 0;
@@ -562,21 +593,25 @@
   }
 
   @keyframes scan-sweep {
-    0% { left: -100%; }
-    100% { left: 100%; }
+    0% {
+      left: -100%;
+    }
+    100% {
+      left: 100%;
+    }
   }
 }
 
 @keyframes frame-pulse {
   0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
+    transform: scale(1);
     box-shadow:
       inset 0 0 30px rgba(255, 0, 110, 0.3),
       inset 0 0 60px rgba(0, 245, 255, 0.2),
       $led-pink;
   }
   50% {
-    transform: translate(-50%, -50%) scale(1.02);
+    transform: scale(1.02);
     box-shadow:
       inset 0 0 40px rgba(255, 0, 110, 0.5),
       inset 0 0 80px rgba(0, 245, 255, 0.4),
@@ -586,6 +621,7 @@
 
 // Resplandores múltiples
 .avatar-glow {
+  position: absolute;
   border-radius: 50%;
   animation: glow-pulse 4s ease-in-out infinite;
 
@@ -612,31 +648,28 @@
 
 @keyframes glow-pulse {
   0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
+    transform: scale(1);
     opacity: 0.4;
   }
   50% {
-    transform: translate(-50%, -50%) scale(1.15);
+    transform: scale(1.15);
     opacity: 0.7;
   }
 }
 
 // Patrón hexagonal
 .hex-pattern {
+  position: absolute;
   width: 100%;
   height: 100%;
 
   .hexagon {
+    position: absolute;
     width: 60px;
     height: 60px;
     border: 2px solid;
     clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
     animation: hex-float 4s ease-in-out infinite;
-
-    @media (max-width: 768px) {
-      width: 40px; // ✅ Reducir tamaño
-      height: 40px;
-    }
 
     &.hex-1 {
       top: 10%;
@@ -676,8 +709,8 @@
 }
 
 .avatar-placeholder {
-  width: 40%;
-  height: 40%;
+  width: 150px;
+  height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -703,10 +736,11 @@
 
 // Elementos flotantes mejorados
 .floating-element {
-  font-size: clamp(1.5rem, 3vw, 2.5rem); // ✅ Responsive
+  position: absolute;
+  font-size: 2.5rem;
   font-weight: bold;
   animation: float 4s ease-in-out infinite;
-  z-index: 3;
+  z-index: -5;
 
   .element-content {
     position: relative;
@@ -715,27 +749,27 @@
   }
 
   .element-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 100px;
     height: 100px;
     border-radius: 50%;
     filter: blur(20px);
     animation: element-glow-pulse 2s ease-in-out infinite;
-
-    @media (max-width: 768px) {
-      width: 60px; // ✅ Reducir tamaño
-      height: 60px;
-      filter: blur(15px);
-    }
   }
 
   &.element-1 {
     top: 8%;
     left: 8%;
     animation-delay: 0s;
+
     .element-content {
       color: $neon-cyan;
       text-shadow: $led-cyan;
     }
+
     .element-glow {
       background: $neon-cyan;
     }
@@ -745,10 +779,12 @@
     top: 70%;
     right: 8%;
     animation-delay: 1.3s;
+
     .element-content {
       color: $neon-pink;
       text-shadow: $led-pink;
     }
+
     .element-glow {
       background: $neon-pink;
       animation-delay: 0.5s;
@@ -759,10 +795,12 @@
     bottom: 8%;
     left: 15%;
     animation-delay: 2.6s;
+
     .element-content {
       color: $neon-purple;
       text-shadow: $led-purple;
     }
+
     .element-glow {
       background: $neon-purple;
       animation-delay: 1s;
@@ -783,13 +821,17 @@
 
 // Lluvia binaria
 .binary-rain {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
 
   span {
+    position: absolute;
     font-family: 'Courier New', monospace;
-    font-size: clamp(0.6rem, 1.5vw, 0.8rem); // ✅ Responsive
+    font-size: 0.8rem;
     color: $neon-green;
     text-shadow: 0 0 10px $neon-green;
     opacity: 0;
@@ -845,3 +887,5 @@
     transform: translateY(0);
   }
 }
+
+
