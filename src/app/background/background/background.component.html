@@ -1,0 +1,25 @@
+<!-- Grid 3D con cubos que se levantan -->
+<div class="grid-3d">
+  <div
+    *ngFor="let cube of gridCubes"
+    class="grid-cube {{cube.color}}"
+    [style.grid-row]="cube.row + 1"
+    [style.grid-column]="cube.col + 1"
+    [style.animation-delay]="cube.animationDelay"
+    [style.animation-duration]="cube.animationDuration">
+  </div>
+</div>
+
+<!-- Partículas LED flotantes -->
+<div class="led-particles">
+  <div
+    *ngFor="let particle of particles"
+    class="particle {{particle.class}}"
+    [style.left]="particle.left"
+    [style.animation-delay]="particle.animationDelay"
+    [style.animation-duration]="particle.animationDuration">
+  </div>
+</div>
+
+<!-- Líneas de escaneo -->
+<div class="scan-lines"></div>
