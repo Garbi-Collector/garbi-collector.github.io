@@ -1,0 +1,47 @@
+<header class="topbar" [class.scrolled]="isScrolled">
+  <!-- Efectos de fondo -->
+  <div class="topbar-bg">
+    <div class="topbar-gradient"></div>
+    <div class="topbar-grid"></div>
+    <div class="topbar-scanline"></div>
+  </div>
+
+  <nav class="topbar-container">
+    <!-- Logo / Brand -->
+    <div class="topbar-brand">
+      <div class="brand-bracket">[</div>
+      <div class="brand-text">
+        <span class="brand-name">GC</span>
+        <span class="brand-cursor">_</span>
+      </div>
+      <div class="brand-bracket">]</div>
+      <div class="brand-glow"></div>
+    </div>
+
+    <!-- Línea decorativa central -->
+    <div class="topbar-divider">
+      <div class="divider-line"></div>
+      <div class="divider-dot"></div>
+    </div>
+
+    <!-- Navegación -->
+    <div class="topbar-nav">
+      <app-nav-button
+        *ngFor="let item of navItems"
+        [label]="item.label"
+        [route]="item.route"
+        [icon]="item.icon">
+      </app-nav-button>
+    </div>
+
+    <!-- Decoraciones LED -->
+    <div class="topbar-decorations">
+      <div class="led-indicator led-1"></div>
+      <div class="led-indicator led-2"></div>
+      <div class="led-indicator led-3"></div>
+    </div>
+  </nav>
+
+  <!-- Borde inferior con efecto LED -->
+  <div class="topbar-border"></div>
+</header>
