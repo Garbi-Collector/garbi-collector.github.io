@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import emailjs from '@emailjs/browser';
+import { environment } from '../../../environments/environment';
+
 
 interface ContactFormData {
   name: string;
@@ -23,10 +25,12 @@ export class ContactComponent {
   submitSuccess = false;
   submitError = false;
 
+
   // Configuración de EmailJS
-  private readonly EMAILJS_PUBLIC_KEY = 'TU_PUBLIC_KEY'; // Reemplaza con tu key
-  private readonly EMAILJS_SERVICE_ID = 'TU_SERVICE_ID'; // Reemplaza con tu service ID
-  private readonly EMAILJS_TEMPLATE_ID = 'TU_TEMPLATE_ID'; // Reemplaza con tu template ID
+
+  private readonly EMAILJS_PUBLIC_KEY = environment.emailjs.publicKey;
+  private readonly EMAILJS_SERVICE_ID = environment.emailjs.serviceId;
+  private readonly EMAILJS_TEMPLATE_ID = environment.emailjs.templateId;
 
   // Datos de contacto
   linkedinUrl = "https://www.linkedin.com/in/victor-gabriel-castillo-scipioni/";
@@ -197,20 +201,3 @@ export class ContactComponent {
     window.location.href = `mailto:${this.email}`;
   }
 }
-
-
-/**
-### 4. Plantilla de EmailJS
-
-En EmailJS, crea una plantilla con este contenido:
-```
-Asunto: {{subject}} - Mensaje desde tu portfolio
-
-De: {{from_name}}
-Email: {{from_email}}
-
-Mensaje:
-{{message}}
-
----
-  Este mensaje fue enviado desde tu formulario de contacto.*/
