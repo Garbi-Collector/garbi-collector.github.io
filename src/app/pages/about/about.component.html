@@ -1,1 +1,201 @@
-<p>about works!</p>
+<section class="about-section">
+  <div class="container">
+
+    <!-- Header: Open to Work -->
+    <div class="status-banner">
+      <div class="status-indicator">
+        <div class="pulse-dot"></div>
+        <span class="status-text">OPEN TO WORK</span>
+      </div>
+      <div class="status-line"></div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="about-grid">
+
+      <!-- Left Column: Profile & Description -->
+      <div class="profile-section">
+
+        <!-- Profile Card -->
+        <div class="profile-card">
+          <div class="card-frame">
+            <div class="corner-decorations">
+              <span class="corner top-left"></span>
+              <span class="corner top-right"></span>
+              <span class="corner bottom-left"></span>
+              <span class="corner bottom-right"></span>
+            </div>
+
+            <!-- Avatar Placeholder -->
+            <div class="avatar-frame">
+              <div class="avatar-glow"></div>
+              <div class="avatar-image">
+                <!-- Aquí puedes poner tu foto -->
+                <div class="avatar-placeholder">
+                  <img ngSrc="assets/img/gabriel.png" alt="" height="1024" width="1024"/>
+                </div>
+              </div>
+              <div class="scan-line"></div>
+            </div>
+
+            <!-- Profile Info -->
+            <div class="profile-info">
+              <h2 class="profile-name">
+                <span class="text-gradient">Garbi-Collector</span>
+              </h2>
+              <p class="profile-role">
+                <span class="bracket">&lt;</span>
+                <span>Full Stack Developer</span>
+                <span class="bracket">/&gt;</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="description-card">
+          <div class="card-header">
+            <span class="header-icon">//</span>
+            <h3>Sobre mí</h3>
+            <div class="header-line"></div>
+          </div>
+          <div class="card-content">
+            <p>
+              Soy un desarrollador que disfruta transformar ideas en aplicaciones reales usando Java, Spring Boot y Angular. Me apasionan los microservicios, la arquitectura de software y los proyectos relacionados con música y videojuegos.
+            </p>
+            <p>
+              Siempre estoy aprendiendo algo nuevo y buscando mejorar como programador en cada proyecto que construyo.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- What I Offer -->
+        <div class="offer-card">
+          <div class="card-header">
+            <span class="header-icon">{{ '{ }' }}</span>
+            <h3>Qué ofrezco</h3>
+            <div class="header-line"></div>
+          </div>
+          <div class="card-content">
+            <p>
+              Ofrezco <span class="highlight cyan">soluciones a medida</span>. Soy un desarrollador con
+              <span class="highlight pink">buena visión para la estructura de software</span>,
+              basándome en mi experiencia y en mis
+              <span class="highlight purple">conocimientos técnicos</span>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button class="cyber-button primary" (click)="openCV()">
+            <span class="button-content">
+              <svg class="button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="7 10 12 15 17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Ver CV
+            </span>
+            <div class="button-glow"></div>
+          </button>
+
+          <button class="cyber-button secondary" (click)="ToPageContact()">
+            <span class="button-content">
+              <svg class="button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Contactarme
+            </span>
+            <div class="button-glow"></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Column: Technologies -->
+      <div class="technologies-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="title-bracket">[</span>
+            <span class="text-gradient">Stack Tecnológico</span>
+            <span class="title-bracket">]</span>
+          </h2>
+          <p class="section-subtitle">
+            <span class="slash">//</span>
+            Tecnologías principales que manejo
+          </p>
+        </div>
+
+        <!-- Technology Cards -->
+        <div class="tech-grid">
+          <div
+            *ngFor="let tech of technologies; let i = index"
+            class="tech-card"
+            [class]="'tech-card-' + tech.color"
+            [style.animation-delay]="(i * 0.1) + 's'">
+
+            <div class="tech-card-inner">
+              <!-- Card Header -->
+              <div class="tech-header">
+                <div class="tech-icon" [class]="'icon-' + tech.icon">
+                  <svg *ngIf="tech.icon === 'java'" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8.851 18.56s-.917.534.653.714c1.902.218 2.874.187 4.969-.211 0 0 .552.346 1.321.646-4.699 2.013-10.633-.118-6.943-1.149M8.276 15.933s-1.028.761.542.924c2.032.209 3.636.227 6.413-.308 0 0 .384.389.987.602-5.679 1.661-12.007.13-7.942-1.218M13.116 11.475c1.158 1.333-.304 2.533-.304 2.533s2.939-1.518 1.589-3.418c-1.261-1.772-2.228-2.652 3.007-5.688 0-.001-8.216 2.051-4.292 6.573M19.33 20.504s.679.559-.747.991c-2.712.822-11.288 1.069-13.669.033-.856-.373.75-.89 1.254-.998.527-.114.828-.093.828-.093-.953-.671-6.156 1.317-2.643 1.887 9.58 1.553 17.462-.7 14.977-1.82M9.292 13.21s-4.362 1.036-1.544 1.412c1.189.159 3.561.123 5.77-.062 1.806-.152 3.618-.477 3.618-.477s-.637.272-1.098.587c-4.429 1.165-12.986.623-10.522-.568 2.082-1.006 3.776-.892 3.776-.892M17.116 17.584c4.503-2.34 2.421-4.589.968-4.285-.355.074-.515.138-.515.138s.132-.207.385-.297c2.875-1.011 5.086 2.981-.928 4.562 0-.001.07-.062.09-.118M14.401 0s2.494 2.494-2.365 6.33c-3.896 3.077-.888 4.832-.001 6.836-2.274-2.053-3.943-3.858-2.824-5.539 1.644-2.469 6.197-3.665 5.19-7.627M9.734 23.924c4.322.277 10.959-.153 11.116-2.198 0 0-.302.775-3.572 1.391-3.688.694-8.239.613-10.937.168 0-.001.553.457 3.393.639"/>
+                  </svg>
+                  <svg *ngIf="tech.icon === 'angular'" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9.93 12.645h4.134L12 7.65M12 2.5l9 3.4-1.35 11.55L12 22l-7.65-4.55L3 5.9m2.72 13.8L12 22l6.28-2.3 1.08-9.25L12 7.65l-6.36 2.8"/>
+                  </svg>
+                </div>
+                <h3 class="tech-name">{{ tech.name }}</h3>
+              </div>
+
+              <!-- Metrics Grid -->
+              <div class="tech-metrics">
+                <div class="metric">
+                  <div class="metric-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                      <polyline points="12 6 12 12 16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="metric-content">
+                    <span class="metric-value">{{ tech.years }}</span>
+                    <span class="metric-label">años</span>
+                  </div>
+                </div>
+
+                <div class="metric-divider"></div>
+
+                <div class="metric">
+                  <div class="metric-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="metric-content">
+                    <span class="metric-value">{{ tech.projects }}</span>
+                    <span class="metric-label">proyectos</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div class="tech-description">
+                <p>{{ tech.description }}</p>
+              </div>
+
+              <!-- Decorative Elements -->
+              <div class="tech-glow"></div>
+              <div class="corner-dots">
+                <span class="dot dot-1"></span>
+                <span class="dot dot-2"></span>
+                <span class="dot dot-3"></span>
+                <span class="dot dot-4"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
