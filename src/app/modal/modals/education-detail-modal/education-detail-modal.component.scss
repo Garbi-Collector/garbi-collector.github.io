@@ -1,0 +1,350 @@
+@use '../../../../theme' as *;
+
+.education-detail-modal {
+  min-width: 500px;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+
+  @media (max-width: 768px) {
+    min-width: unset;
+    width: 100%;
+    gap: $spacing-md;
+  }
+}
+
+.modal-header-content {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding-bottom: $spacing-md;
+  border-bottom: 2px solid rgba($neon-purple, 0.3);
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .institution-logo {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    border: 2px solid $neon-purple;
+    border-radius: 50%;
+    padding: 12px;
+    background: rgba($primary-purple, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(139, 0, 255, 0.4);
+
+    @media (max-width: 768px) {
+      width: 60px;
+      height: 60px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .header-text {
+    flex: 1;
+
+    .institution-name {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: $spacing-xs;
+
+      @media (max-width: 768px) {
+        font-size: 1.5rem;
+      }
+
+      .bracket {
+        color: $neon-purple;
+        margin: 0 $spacing-xs;
+      }
+
+      .text-gradient {
+        background: $gradient-neon;
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradient-shift 3s ease infinite;
+      }
+    }
+
+    .title {
+      font-size: 1.1rem;
+      color: rgba($text-primary, 0.85);
+      font-weight: 600;
+
+      @media (max-width: 768px) {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-md;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: $spacing-sm;
+  }
+
+  .info-card {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    padding: $spacing-md;
+    background: rgba($primary-purple, 0.3);
+    border-radius: $border-radius-md;
+    border: 1px solid rgba($neon-purple, 0.3);
+
+    @media (max-width: 768px) {
+      padding: $spacing-sm;
+    }
+
+    .info-icon {
+      width: 32px;
+      height: 32px;
+      color: $neon-purple;
+      flex-shrink: 0;
+
+      @media (max-width: 768px) {
+        width: 24px;
+        height: 24px;
+      }
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .info-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+
+      .info-label {
+        font-size: 0.7rem;
+        color: rgba($text-primary, 0.6);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+
+      .info-value {
+        font-family: 'Courier New', monospace;
+        color: $neon-purple;
+        font-size: 0.85rem;
+        font-weight: 600;
+
+        @media (max-width: 768px) {
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+}
+
+.divider {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    $neon-purple 50%,
+    transparent 100%
+  );
+  margin: $spacing-sm 0;
+}
+
+.description-section {
+  .section-label {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: $neon-purple;
+    margin-bottom: $spacing-sm;
+    font-weight: bold;
+
+    .slash {
+      color: $neon-pink;
+      margin-right: 4px;
+    }
+  }
+
+  .description-content {
+    background: rgba($primary-purple, 0.2);
+    border: 1px solid rgba($neon-purple, 0.3);
+    border-radius: $border-radius-md;
+    padding: $spacing-md;
+
+    @media (max-width: 768px) {
+      padding: $spacing-sm;
+    }
+
+    p {
+      color: rgba($text-primary, 0.9);
+      line-height: 1.8;
+      margin-bottom: $spacing-md;
+      font-size: 0.95rem;
+
+      @media (max-width: 768px) {
+        font-size: 0.85rem;
+        line-height: 1.6;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-top: $spacing-md;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  .cyber-btn {
+    flex: 1;
+    min-width: 150px;
+    padding: $spacing-sm $spacing-md;
+    background: rgba($primary-darker, 0.8);
+    border: 2px solid;
+    border-radius: $border-radius-md;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all $transition-medium;
+
+    @media (max-width: 768px) {
+      min-width: unset;
+      font-size: 0.8rem;
+    }
+
+    .btn-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: $spacing-xs;
+      position: relative;
+      z-index: 2;
+
+      .btn-icon {
+        width: 16px;
+        height: 16px;
+
+        @media (max-width: 768px) {
+          width: 14px;
+          height: 14px;
+        }
+      }
+    }
+
+    .btn-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: all $transition-medium;
+      z-index: 1;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+
+      .btn-glow {
+        width: 200%;
+        height: 200%;
+      }
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &.certificate {
+      border-color: #39ff14;
+      color: #39ff14;
+
+      .btn-glow {
+        background: radial-gradient(circle,
+          rgba(57, 255, 20, 0.4) 0%,
+          transparent 70%
+        );
+      }
+
+      &:hover {
+        box-shadow:
+          0 0 20px rgba(57, 255, 20, 0.6),
+          inset 0 0 20px rgba(57, 255, 20, 0.2);
+      }
+    }
+
+    &.institution {
+      border-color: $neon-cyan;
+      color: $neon-cyan;
+
+      .btn-glow {
+        background: radial-gradient(circle,
+          rgba(0, 245, 255, 0.4) 0%,
+          transparent 70%
+        );
+      }
+
+      &:hover {
+        box-shadow:
+          0 0 20px rgba(0, 245, 255, 0.6),
+          inset 0 0 20px rgba(0, 245, 255, 0.2);
+      }
+    }
+
+    &.repository {
+      border-color: $neon-pink;
+      color: $neon-pink;
+
+      .btn-glow {
+        background: radial-gradient(circle,
+          rgba(255, 0, 110, 0.4) 0%,
+          transparent 70%
+        );
+      }
+
+      &:hover {
+        box-shadow:
+          0 0 20px rgba(255, 0, 110, 0.6),
+          inset 0 0 20px rgba(255, 0, 110, 0.2);
+      }
+    }
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
