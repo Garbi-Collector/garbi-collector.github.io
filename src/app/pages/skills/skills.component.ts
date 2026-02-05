@@ -41,7 +41,7 @@ export class SkillsComponent {
         { name: 'Spring Security', icon: 'shield', color: 'cyan' },
         { name: 'REST APIs', icon: 'cloud', color: 'pink' },
         { name: 'JWT', icon: 'key', color: 'pink' },
-        { name: 'Microservices', icon: 'boxes', color: 'cyan' },
+        { name: 'Microservices', icon: 'boxes', color: 'purple' },
         { name: 'JPA / Hibernate', icon: 'database-link', color: 'cyan' }
       ]
     },
@@ -55,16 +55,16 @@ export class SkillsComponent {
         { name: 'TypeScript', icon: 'code-brackets', color: 'cyan' },
         { name: 'JavaScript', icon: 'javascript', color: 'yellow' },
         { name: 'HTML', icon: 'html', color: 'pink' },
-        { name: 'CSS / SCSS', icon: 'palette', color: 'cyan' }
+        { name: 'CSS / SCSS', icon: 'palette', color: 'purple' }
       ]
     },
     {
       id: 'database',
       title: 'Base de Datos',
       icon: 'database',
-      color: 'cyan',
+      color: 'purple',
       skills: [
-        { name: 'MySQL', icon: 'database', color: 'cyan' },
+        { name: 'MySQL', icon: 'database', color: 'purple' },
         { name: 'SQL', icon: 'table', color: 'cyan' }
       ]
     },
@@ -77,7 +77,7 @@ export class SkillsComponent {
         { name: 'Clean Architecture', icon: 'building', color: 'green' },
         { name: 'SOLID', icon: 'cube', color: 'cyan' },
         { name: 'MVC', icon: 'triangle', color: 'pink' },
-        { name: 'Authentication & Authorization', icon: 'lock', color: 'cyan' },
+        { name: 'Authentication & Authorization', icon: 'lock', color: 'purple' },
         { name: 'CRUD Design', icon: 'grid', color: 'yellow' },
         { name: 'API Design', icon: 'network', color: 'cyan' }
       ]
@@ -103,17 +103,17 @@ export class SkillsComponent {
       skills: [
         { name: 'IntelliJ IDEA', icon: 'brain', color: 'cyan' },
         { name: 'VS Code', icon: 'terminal', color: 'pink' },
-        { name: 'WebStorm', icon: 'storm', color: 'cyan' }
+        { name: 'WebStorm', icon: 'storm', color: 'purple' }
       ]
     },
     {
       id: 'backend-testing',
       title: 'Backend & Testing',
       icon: 'test-tube',
-      color: 'cyan',
+      color: 'purple',
       skills: [
         { name: 'Postman', icon: 'send', color: 'pink' },
-        { name: 'Maven', icon: 'package', color: 'cyan' }
+        { name: 'Maven', icon: 'package', color: 'purple' }
       ]
     },
     {
@@ -124,7 +124,7 @@ export class SkillsComponent {
       skills: [
         { name: 'Docker', icon: 'container', color: 'cyan' },
         { name: 'Linux (Ubuntu)', icon: 'terminal-square', color: 'yellow' },
-        { name: 'Windows', icon: 'window', color: 'cyan' },
+        { name: 'Windows', icon: 'window', color: 'purple' },
         { name: 'npm', icon: 'npm', color: 'pink' }
       ]
     }
