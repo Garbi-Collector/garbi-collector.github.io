@@ -9,19 +9,26 @@
   height: 100%;
   pointer-events: none;
   z-index: -1;
-  overflow: hidden;
+  overflow: hidden; // ✅ Ya lo tienes, bien
 }
 
-// Grid 3D con cubos que se levantan - OPTIMIZADO
-.grid-3d {
+// ✅ NUEVO: Contenedor que previene overflow
+.grid-3d,
+.led-particles,
+.scan-lines {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden; // ✅ CLAVE: cada capa debe tener overflow hidden
+}
+
+// Grid 3D
+.grid-3d {
   display: grid;
-  grid-template-columns: repeat(12, 1fr); // ✅ Reducido de 20 a 12
-  grid-template-rows: repeat(12, 1fr); // ✅ Reducido de 20 a 12
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
   pointer-events: none;
 
   .grid-cube {
@@ -30,7 +37,8 @@
     position: relative;
     transform-style: preserve-3d;
     animation: cube-rise infinite ease-in-out;
-    will-change: transform; // ✅ Optimización GPU
+    will-change: transform;
+    contain: layout style paint; // ✅ NUEVO: optimización de rendering
 
     &::before {
       content: '';
@@ -43,7 +51,7 @@
       border: 1px solid transparent;
       transform: translateZ(0);
       transition: all 0.3s ease;
-      will-change: border-color, box-shadow; // ✅ Optimización GPU
+      will-change: border-color, box-shadow;
     }
 
     &.cyan::before {
@@ -71,7 +79,7 @@
     transform: translateZ(0) rotateX(0deg);
   }
   50% {
-    transform: translateZ(20px) rotateX(5deg); // ✅ Reducido de 30px a 20px
+    transform: translateZ(20px) rotateX(5deg);
   }
 }
 
@@ -81,9 +89,9 @@
     box-shadow: inset 0 0 0 rgba(0, 245, 255, 0);
   }
   50% {
-    border-color: rgba(0, 245, 255, 0.6); // ✅ Reducido de 0.8 a 0.6
+    border-color: rgba(0, 245, 255, 0.6);
     box-shadow:
-      inset 0 0 15px rgba(0, 245, 255, 0.4), // ✅ Reducido blur
+      inset 0 0 15px rgba(0, 245, 255, 0.4),
       0 0 15px rgba(0, 245, 255, 0.6);
   }
 }
@@ -114,24 +122,19 @@
   }
 }
 
-// Líneas de escaneo estilo CRT - OPTIMIZADO
+// Líneas de escaneo
 .scan-lines {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   background: repeating-linear-gradient(
       0deg,
-      rgba(0, 0, 0, 0.1), // ✅ Reducido de 0.15 a 0.1
+      rgba(0, 0, 0, 0.1),
       rgba(0, 0, 0, 0.1) 1px,
       transparent 1px,
       transparent 2px
   );
   pointer-events: none;
-  opacity: 0.2; // ✅ Reducido de 0.3 a 0.2
-  animation: scan-move 10s linear infinite; // ✅ Aumentado de 8s a 10s
-  will-change: transform; // ✅ Optimización GPU
+  opacity: 0.2;
+  animation: scan-move 10s linear infinite;
+  will-change: transform;
 }
 
 @keyframes scan-move {
@@ -143,26 +146,22 @@
   }
 }
 
-// Partículas LED - OPTIMIZADO
+// Partículas LED
 .led-particles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   pointer-events: none;
 
   .particle {
     position: absolute;
-    width: 3px; // ✅ Reducido de 4px a 3px
+    width: 3px;
     height: 3px;
     border-radius: 50%;
     animation: particle-float infinite ease-in-out;
-    will-change: transform, opacity; // ✅ Optimización GPU
+    will-change: transform, opacity;
+    contain: layout style paint; // ✅ NUEVO
 
     &.cyan {
       background: $neon-cyan;
-      box-shadow: 0 0 8px $neon-cyan; // ✅ Reducido blur de 10px a 8px
+      box-shadow: 0 0 8px $neon-cyan;
     }
 
     &.pink {
@@ -183,18 +182,17 @@
     opacity: 0;
   }
   10% {
-    opacity: 0.8; // ✅ Reducido de 1 a 0.8
+    opacity: 0.8;
   }
   90% {
     opacity: 0.8;
   }
   100% {
-    transform: translateY(-100px) translateX(100px);
+    transform: translateY(-100px) translateX(50px); // ✅ REDUCIDO de 100px a 50px
     opacity: 0;
   }
 }
 
-// ✅ Media query para reducir animaciones en dispositivos de bajo rendimiento
 @media (prefers-reduced-motion: reduce) {
   .grid-cube,
   .scan-lines,
