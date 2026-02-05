@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import emailjs from '@emailjs/browser';
-import { environment } from '../../../environments/environment';
+import { environmentProd } from '../../../environments/environment.prod';
 
 
 interface ContactFormData {
@@ -28,9 +28,9 @@ export class ContactComponent {
 
   // Configuración de EmailJS
 
-  private readonly EMAILJS_PUBLIC_KEY = environment.emailjs.publicKey;
-  private readonly EMAILJS_SERVICE_ID = environment.emailjs.serviceId;
-  private readonly EMAILJS_TEMPLATE_ID = environment.emailjs.templateId;
+  private readonly EMAILJS_PUBLIC_KEY = environmentProd.emailjs.publicKey;
+  private readonly EMAILJS_SERVICE_ID = environmentProd.emailjs.serviceId;
+  private readonly EMAILJS_TEMPLATE_ID = environmentProd.emailjs.templateId;
 
   // Datos de contacto
   linkedinUrl = "https://www.linkedin.com/in/victor-gabriel-castillo-scipioni/";
