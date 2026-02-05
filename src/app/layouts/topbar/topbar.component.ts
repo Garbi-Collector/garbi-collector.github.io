@@ -14,13 +14,14 @@ export class TopbarComponent {
   isMobileMenuOpen = false; // ✅ Estado del menú móvil
 
   navItems = [
-    { label: 'Home', route: '/', icon: '⌂' },
-    { label: 'About', route: '/about', icon: '◉' },
-    { label: 'Experience', route: '/experience', icon: '⚡' },
-    { label: 'Skills', route: '/skills', icon: '◈' },
-    { label: 'Projects', route: '/projects', icon: '▣' },
-    { label: 'Contact', route: '/contact', icon: '◐' }
+    { label: 'Inicio', route: '/', icon: '⌂' },
+    { label: 'Sobre mí', route: '/about', icon: '◉' },
+    { label: 'Experiencia', route: '/experience', icon: '⚡' },
+    { label: 'Tecnologías', route: '/skills', icon: '◈' },
+    { label: 'Proyectos', route: '/projects', icon: '▣' },
+    { label: 'Contacto', route: '/contact', icon: '◐' }
   ];
+
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
