@@ -67,12 +67,20 @@ export class ExperienceComponent {
         { name: 'MySQL', color: 'cyan' },
         { name: 'MinIO', color: 'cyan' }
       ],
-      shortDescription: 'Sistema de gestión de un barrio privado',
-      detailedDescription: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      shortDescription: 'Sistema de gestión para barrio privado',
+      detailedDescription: `Desarrollé funcionalidades clave para un sistema de gestión destinado a la administración de un barrio privado, enfocado en la organización de residentes, control de accesos y automatización de procesos administrativos.
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Trabajé en el desarrollo fullstack utilizando Spring Boot y Angular, implementando módulos para:
 
-En este proyecto, desarrollé funcionalidades clave para la gestión integral del barrio privado, incluyendo módulos de administración, control de accesos, y sistemas de notificaciones.`
+➧ Gestión de expensas
+
+➧ Administración de datos del barrio
+
+➧ Sistema de notificaciones internas
+
+También participé en la configuración del entorno de despliegue con Docker, la integración con MySQL para persistencia de datos, y el uso de MinIO para almacenamiento de archivos.
+
+Este proyecto me permitió trabajar con una arquitectura web completa, desde la lógica de negocio en el backend hasta la interfaz de usuario en el frontend.`
     },
     {
       id: 'soundtribe',
@@ -88,12 +96,33 @@ En este proyecto, desarrollé funcionalidades clave para la gestión integral de
         { name: 'MySQL', color: 'cyan' },
         { name: 'MinIO', color: 'cyan' }
       ],
-      shortDescription: 'Red social para escuchar y compartir música',
-      detailedDescription: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris commodo quam vel sapien tincidunt, at varius nunc tempor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+      shortDescription: 'Red social orientada a la experiencia musical',
+      detailedDescription: `Desarrollé una plataforma tipo red social centrada en la experiencia musical, donde los usuarios pueden subir canciones, crear albumes, interactuar con otros perfiles y descubrir nuevo contenido.
 
-Desarrollé una plataforma completa de red social enfocada en la experiencia musical, con features de streaming, playlists compartidas, y sistema de recomendaciones basado en algoritmos de machine learning.
+El sistema fue construido con una arquitectura backend en Spring Boot y frontend en Angular, incluyendo:
 
-Implementé arquitectura de microservicios escalable capaz de manejar miles de usuarios concurrentes.`
+➧ Sistema de autenticación con JWT
+
+➧ Gestión de usuarios, perfiles y fotos
+
+➧ Subida y reproducción de canciones
+
+➧ Creación y administración de playlists
+
+➧ Interacción social entre usuarios
+
+Implementé almacenamiento de archivos utilizando MinIO y base de datos MySQL.
+También trabajé en la contenerización del sistema con Docker, preparando la aplicación para entornos escalables y futuros microservicios.
+
+Este proyecto fue clave para profundizar en:
+
+➧ Arquitecturas de microservicios backend con Spring
+
+➧ Seguridad con JWT
+
+➧ Manejo de archivos y almacenamiento distribuido
+
+➧ Diseño de APIs REST completas`
     },
     {
       id: 'stokea2',
@@ -108,12 +137,36 @@ Implementé arquitectura de microservicios escalable capaz de manejar miles de u
         { name: 'Electron', color: 'cyan' },
         { name: 'MySQL', color: 'cyan' }
       ],
-      shortDescription: 'Aplicación de escritorio para gestión de un negocio',
-      detailedDescription: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras porttitor purus ac dolor vehicula, in aliquet nisi tempor.
+      shortDescription: 'Aplicación de escritorio para gestión comercial',
+      detailedDescription: `Desarrollé una aplicación de escritorio multiplataforma orientada a la gestión de un negocio, incluyendo control de inventario, ventas y generación de reportes.
 
-Creé una aplicación de escritorio multiplataforma usando Electron y Angular, optimizada para gestión de inventario, ventas, y reportes en tiempo real.
+La aplicación fue construida utilizando:
 
-La aplicación incluye sincronización offline-first y generación automática de reportes financieros.`
+➧ Angular para la interfaz
+
+➧ Electron para empaquetado como aplicación de escritorio
+
+➧ Node.js para la lógica backend
+
+➧ MySQL como base de datos
+
+Entre las principales funcionalidades implementadas:
+
+➧ Gestión de productos e inventario
+
+➧ Registro de ventas
+
+➧ Generación de reportes financieros
+
+➧ Interfaz optimizada para uso diario en entornos comerciales
+
+Este proyecto me permitió trabajar en:
+
+➧ Desarrollo de aplicaciones de escritorio con tecnologías web
+
+➧ Integración entre frontend y backend en entornos locales
+
+➧ Optimización de flujos de trabajo para usuarios no técnicos`
     }
   ];
 
@@ -126,11 +179,23 @@ La aplicación incluye sincronización offline-first y generación automática d
       startDate: 'Febrero 2023',
       endDate: 'Agosto 2025',
       status: 'completed',
-      description: `La Tecnicatura Universitaria en Programación de la UTN-FRC es una carrera de grado universitario enfocada en formar profesionales capacitados para el desarrollo de software.
+      description: `Carrera universitaria orientada a la formación de desarrolladores de software, con énfasis en fundamentos de programación, algoritmos y desarrollo de sistemas.
 
-Durante la carrera, adquirí conocimientos profundos en algoritmos, estructuras de datos, programación orientada a objetos, bases de datos, desarrollo web, y metodologías ágiles.
+Durante la tecnicatura adquirí conocimientos en:
 
-El programa incluye materias de matemática, lógica, y fundamentos de la computación, complementadas con proyectos prácticos integradores.`,
+➧ Programación orientada a objetos
+
+➧ Algoritmos y estructuras de datos
+
+➧ Bases de datos relacionales
+
+➧ Desarrollo web
+
+➧ Metodologías ágiles
+
+➧ Lógica y fundamentos matemáticos
+
+La carrera combinó teoría y proyectos prácticos, lo que me permitió desarrollar aplicaciones reales y fortalecer mis habilidades de resolución de problemas.`,
       certificateUrl: 'https://drive.google.com/file/d/1AATQ2hry5IZ35M3iCNMZ6g6uV-x0nJ5c/view?usp=sharing',
       institutionUrl: 'https://www.frc.utn.edu.ar/secretarias/academica/tecnicaturas/programacion/'
     },
@@ -142,15 +207,19 @@ El programa incluye materias de matemática, lógica, y fundamentos de la comput
       startDate: 'Noviembre 2024',
       endDate: 'Noviembre 2024',
       status: 'completed',
-      description: `Evento organizado con trabajadores de Mercado Libre donde discutimos sobre la potencia, los pros y contras de la inteligencia artificial en el desarrollo de software moderno.
+      description: `Participé en un evento organizado por profesionales de Mercado Libre enfocado en el impacto de la inteligencia artificial en el desarrollo de software moderno.
 
-Se abordaron temas como:
-- Impacto de la IA en el desarrollo de productos
-- Herramientas de IA para productividad
-- Ética y responsabilidad en el uso de IA
-- Casos de uso reales en Mercado Libre
+Durante las charlas se abordaron temas como:
 
-Fue una experiencia enriquecedora que me permitió conocer cómo empresas líderes implementan IA en sus procesos.`
+➧ Uso de IA en productos reales
+
+➧ Herramientas de asistencia para desarrolladores
+
+➧ Ética y responsabilidad en sistemas inteligentes
+
+➧ Tendencias del mercado tecnológico
+
+Esta experiencia me permitió conocer prácticas y perspectivas de una empresa líder en tecnología en Latinoamérica.`
     },
     {
       id: 'advent-of-code',
@@ -160,15 +229,19 @@ Fue una experiencia enriquecedora que me permitió conocer cómo empresas líder
       startDate: 'Diciembre 2025',
       endDate: 'Diciembre 2025',
       status: 'completed',
-      description: `Advent of Code es un evento anual que presenta desafíos de programación diarios durante diciembre, con temática navideña.
+      description: `Participé en el evento anual Advent of Code, resolviendo desafíos diarios de programación enfocados en lógica, algoritmos y optimización.
 
-Participé resolviendo problemas algorítmicos complejos que requieren:
-- Pensamiento lógico y matemático
-- Optimización de algoritmos
-- Estructuras de datos eficientes
-- Análisis de complejidad
+Durante el evento trabajé en problemas que requerían:
 
-Esta experiencia fortaleció mis habilidades de problem-solving y me expuso a diferentes paradigmas de programación.`,
+➧ Análisis de complejidad
+
+➧ Uso eficiente de estructuras de datos
+
+➧ Pensamiento algorítmico
+
+➧ Resolución de problemas paso a paso
+
+Esta experiencia fortaleció mis habilidades técnicas y mi capacidad para enfrentar problemas complejos de programación.`,
       repositoryUrl: 'https://github.com/Garbi-Collector/Advent-of-code',
       institutionUrl: 'https://adventofcode.com'
     }
