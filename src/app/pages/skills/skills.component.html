@@ -1,1 +1,162 @@
-<p>skills works!</p>
+<section class="skills-section">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="section-header">
+      <h1 class="section-title">
+        <span class="title-bracket">{{ '{' }}</span>
+        <span class="text-gradient">Skills & Tools</span>
+        <span class="title-bracket">{{ '}' }}</span>
+      </h1>
+      <p class="section-subtitle">
+        <span class="slash">//</span>
+        Mi arsenal tecnológico
+      </p>
+      <div class="title-line"></div>
+    </div>
+
+    <!-- View Switcher -->
+    <div class="view-switcher">
+      <div class="switcher-container">
+        <div class="switcher-background"
+             [class.right]="currentView === 'tools'">
+        </div>
+
+        <button
+          class="switcher-option"
+          [class.active]="currentView === 'skills'"
+          (click)="switchView('skills')">
+          <span class="option-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polyline points="16 18 22 12 16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="8 6 2 12 8 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="option-text">Skills</span>
+          <div class="option-glow"></div>
+        </button>
+
+        <button
+          class="switcher-option"
+          [class.active]="currentView === 'tools'"
+          (click)="switchView('tools')">
+          <span class="option-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="option-text">Tools</span>
+          <div class="option-glow"></div>
+        </button>
+
+        <!-- Corner decorations -->
+        <span class="corner corner-tl"></span>
+        <span class="corner corner-tr"></span>
+        <span class="corner corner-bl"></span>
+        <span class="corner corner-br"></span>
+      </div>
+    </div>
+
+    <!-- Skills Content -->
+    <div class="content-area" *ngIf="currentView === 'skills'">
+      <div
+        *ngFor="let category of skillCategories; let i = index"
+        class="category-section"
+        [style.animation-delay]="(i * 0.15) + 's'">
+
+        <!-- Category Header -->
+        <div class="category-header" [class]="'header-' + category.color">
+          <div class="header-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path [attr.d]="getIconPath(category.icon)"/>
+            </svg>
+          </div>
+          <h2 class="category-title">{{ category.title }}</h2>
+          <div class="header-line"></div>
+        </div>
+
+        <!-- Skills Grid -->
+        <div class="skills-grid">
+          <div
+            *ngFor="let skill of category.skills; let j = index"
+            class="skill-card"
+            [class]="'skill-' + skill.color"
+            [style.animation-delay]="((i * 0.15) + (j * 0.05)) + 's'">
+
+            <div class="card-inner">
+              <!-- Skill Icon -->
+              <div class="skill-icon" *ngIf="skill.icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path [attr.d]="getSkillIconPath(skill.icon)"/>
+                </svg>
+              </div>
+
+              <!-- Skill Name -->
+              <div class="skill-name">{{ skill.name }}</div>
+
+              <!-- Card Glow -->
+              <div class="card-glow"></div>
+
+              <!-- Corner Dots -->
+              <span class="dot dot-tl"></span>
+              <span class="dot dot-tr"></span>
+              <span class="dot dot-bl"></span>
+              <span class="dot dot-br"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tools Content -->
+    <div class="content-area" *ngIf="currentView === 'tools'">
+      <div
+        *ngFor="let category of toolCategories; let i = index"
+        class="category-section"
+        [style.animation-delay]="(i * 0.15) + 's'">
+
+        <!-- Category Header -->
+        <div class="category-header" [class]="'header-' + category.color">
+          <div class="header-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path [attr.d]="getIconPath(category.icon)"/>
+            </svg>
+          </div>
+          <h2 class="category-title">{{ category.title }}</h2>
+          <div class="header-line"></div>
+        </div>
+
+        <!-- Tools Grid -->
+        <div class="skills-grid">
+          <div
+            *ngFor="let tool of category.skills; let j = index"
+            class="skill-card"
+            [class]="'skill-' + tool.color"
+            [style.animation-delay]="((i * 0.15) + (j * 0.05)) + 's'">
+
+            <div class="card-inner">
+              <!-- Tool Icon -->
+              <div class="skill-icon" *ngIf="tool.icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path [attr.d]="getSkillIconPath(tool.icon)"/>
+                </svg>
+              </div>
+
+              <!-- Tool Name -->
+              <div class="skill-name">{{ tool.name }}</div>
+
+              <!-- Card Glow -->
+              <div class="card-glow"></div>
+
+              <!-- Corner Dots -->
+              <span class="dot dot-tl"></span>
+              <span class="dot dot-tr"></span>
+              <span class="dot dot-bl"></span>
+              <span class="dot dot-br"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
