@@ -1,0 +1,545 @@
+@use '../../../../theme' as *;
+
+// ==========================================
+// BACKDROP
+// ==========================================
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba($primary-darker, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: backdropFadeIn 0.3s ease;
+
+  &.modal-animating {
+    animation: backdropFadeIn 0.6s ease;
+  }
+}
+
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+  }
+}
+
+// ==========================================
+// MODAL WINDOW
+// ==========================================
+.modal-window {
+  position: absolute;
+  background: linear-gradient(
+      135deg,
+      rgba($primary-dark, 0.95) 0%,
+      rgba($primary-purple, 0.9) 100%
+  );
+  border: 2px solid $neon-cyan;
+  border-radius: $border-radius-lg;
+  box-shadow:
+    0 0 40px rgba(0, 245, 255, 0.6),
+    0 0 80px rgba(0, 245, 255, 0.3),
+    inset 0 0 40px rgba(0, 245, 255, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-width: 90vw;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  transform-origin: center center;
+  transition: box-shadow 0.3s ease;
+
+  // Animación de entrada cyberpunk
+  &.modal-animating {
+    animation:
+      modalSlideIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+      modalGlitch 0.6s ease,
+      modalScanIn 0.6s ease;
+  }
+
+  &.modal-dragging {
+    cursor: move;
+    box-shadow:
+      0 0 60px rgba(0, 245, 255, 0.8),
+      0 0 120px rgba(0, 245, 255, 0.5),
+      inset 0 0 60px rgba(0, 245, 255, 0.2);
+    transition: none;
+  }
+
+  // Responsive
+  @media (max-width: 768px) {
+    max-width: 95vw;
+    max-height: 95vh;
+    width: 95vw !important;
+  }
+}
+
+// Animación principal de entrada
+@keyframes modalSlideIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7) rotateX(20deg);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.05) rotateX(-5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotateX(0deg);
+  }
+}
+
+// Efecto glitch en la entrada
+@keyframes modalGlitch {
+  0%, 100% {
+    filter: hue-rotate(0deg);
+  }
+  10% {
+    filter: hue-rotate(90deg);
+    transform: translate(-50%, -50%) translate(-5px, 0);
+  }
+  20% {
+    filter: hue-rotate(-90deg);
+    transform: translate(-50%, -50%) translate(5px, 0);
+  }
+  30% {
+    filter: hue-rotate(0deg);
+    transform: translate(-50%, -50%) translate(0, 0);
+  }
+}
+
+// Animación de escaneo
+@keyframes modalScanIn {
+  0% {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+// ==========================================
+// CYBER FRAME DECORATIONS
+// ==========================================
+.cyber-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+
+  // Esquinas
+  .corner {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 3px solid;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: currentColor;
+      box-shadow: 0 0 10px currentColor;
+    }
+
+    &.corner-tl {
+      top: -2px;
+      left: -2px;
+      border-color: $neon-cyan;
+      border-right: none;
+      border-bottom: none;
+      animation: cornerPulse 2s ease-in-out infinite;
+
+      &::before {
+        top: 0;
+        left: 0;
+        border-radius: 2px 0 0 0;
+      }
+    }
+
+    &.corner-tr {
+      top: -2px;
+      right: -2px;
+      border-color: $neon-pink;
+      border-left: none;
+      border-bottom: none;
+      animation: cornerPulse 2s ease-in-out infinite 0.5s;
+
+      &::before {
+        top: 0;
+        right: 0;
+        border-radius: 0 2px 0 0;
+      }
+    }
+
+    &.corner-bl {
+      bottom: -2px;
+      left: -2px;
+      border-color: $neon-pink;
+      border-right: none;
+      border-top: none;
+      animation: cornerPulse 2s ease-in-out infinite 1s;
+
+      &::before {
+        bottom: 0;
+        left: 0;
+        border-radius: 0 0 0 2px;
+      }
+    }
+
+    &.corner-br {
+      bottom: -2px;
+      right: -2px;
+      border-color: $neon-cyan;
+      border-left: none;
+      border-top: none;
+      animation: cornerPulse 2s ease-in-out infinite 1.5s;
+
+      &::before {
+        bottom: 0;
+        right: 0;
+        border-radius: 0 0 2px 0;
+      }
+    }
+  }
+
+  // Líneas de los bordes
+  .edge-line {
+    position: absolute;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      $neon-cyan 50%,
+      transparent 100%
+    );
+    animation: edgeScan 3s linear infinite;
+
+    &.edge-top {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+    }
+
+    &.edge-bottom {
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      animation-delay: 1.5s;
+    }
+
+    &.edge-left {
+      top: 0;
+      left: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(180deg,
+        transparent 0%,
+        $neon-pink 50%,
+        transparent 100%
+      );
+      animation-delay: 0.75s;
+    }
+
+    &.edge-right {
+      top: 0;
+      right: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(180deg,
+        transparent 0%,
+        $neon-pink 50%,
+        transparent 100%
+      );
+      animation-delay: 2.25s;
+    }
+  }
+}
+
+@keyframes cornerPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes edgeScan {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+// ==========================================
+// SCAN LINES EFFECT
+// ==========================================
+.scan-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15) 1px,
+      transparent 1px,
+      transparent 2px
+  );
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 2;
+  animation: scanMove 8s linear infinite;
+}
+
+@keyframes scanMove {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100px);
+  }
+}
+
+// ==========================================
+// HOLOGRAPHIC OVERLAY
+// ==========================================
+.hologram-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(0, 245, 255, 0.2) 50%,
+      transparent 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+  animation: hologramScan 0.6s ease-out;
+}
+
+@keyframes hologramScan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+// ==========================================
+// MODAL HEADER (DRAGGABLE)
+// ==========================================
+.modal-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-sm $spacing-md;
+  background: rgba($primary-darker, 0.8);
+  border-bottom: 1px solid rgba($neon-cyan, 0.3);
+  z-index: 3;
+  user-select: none;
+
+  &.draggable {
+    cursor: move;
+
+    &:hover {
+      background: rgba($primary-darker, 0.95);
+      border-bottom-color: rgba($neon-cyan, 0.6);
+
+      .grip-dot {
+        opacity: 1;
+        animation: gripPulse 0.6s ease infinite;
+      }
+    }
+
+    &:active {
+      background: rgba($primary-dark, 1);
+    }
+  }
+
+  .header-grip {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+
+    .grip-dot {
+      width: 4px;
+      height: 4px;
+      background: $neon-cyan;
+      border-radius: 50%;
+      opacity: 0.5;
+      box-shadow: 0 0 4px $neon-cyan;
+      transition: all 0.3s ease;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: $spacing-xs $spacing-sm;
+  }
+}
+
+@keyframes gripPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+}
+
+// ==========================================
+// CLOSE BUTTON
+// ==========================================
+.close-button {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba($neon-pink, 0.1);
+  border: 2px solid $neon-pink;
+  border-radius: 50%;
+  color: $neon-pink;
+  cursor: pointer;
+  transition: all $transition-medium;
+  position: relative;
+  overflow: hidden;
+  z-index: 10;
+
+  @media (max-width: 768px) {
+    width: 28px;
+    height: 28px;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    z-index: 2;
+
+    @media (max-width: 768px) {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  .button-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle,
+      rgba(255, 0, 110, 0.6) 0%,
+      transparent 70%
+    );
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all $transition-medium;
+    z-index: 1;
+  }
+
+  &:hover {
+    border-color: lighten($neon-pink, 10%);
+    color: lighten($neon-pink, 10%);
+    box-shadow:
+      0 0 20px rgba(255, 0, 110, 0.6),
+      inset 0 0 20px rgba(255, 0, 110, 0.2);
+    transform: rotate(90deg);
+
+    .button-glow {
+      width: 200%;
+      height: 200%;
+    }
+  }
+
+  &:active {
+    transform: rotate(90deg) scale(0.9);
+  }
+}
+
+// ==========================================
+// MODAL CONTENT
+// ==========================================
+.modal-content {
+  flex: 1;
+  padding: $spacing-lg;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 3;
+  min-height: 0; // Fix para flex overflow
+
+  @media (max-width: 768px) {
+    padding: $spacing-md;
+  }
+
+  // Scrollbar personalizado
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba($primary-purple, 0.3);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $neon-cyan;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+
+    &:hover {
+      background: lighten($neon-cyan, 10%);
+    }
+  }
+}
+
+// ==========================================
+// GLOBAL DRAGGING STATE
+// ==========================================
+:global(body.modal-dragging) {
+  cursor: move !important;
+  user-select: none !important;
+
+  * {
+    cursor: move !important;
+  }
+}
