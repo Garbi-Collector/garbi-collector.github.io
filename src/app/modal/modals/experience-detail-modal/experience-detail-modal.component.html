@@ -1,0 +1,65 @@
+<app-base-modal>
+  <div class="experience-detail-modal">
+
+    <!-- Header with Logo -->
+    <div class="modal-header-content">
+      <div class="company-logo">
+        <img [src]="experience.logo" [alt]="experience.company + ' logo'"
+             onerror="this.src='assets/logos/default-company.png'">
+      </div>
+      <div class="header-text">
+        <h2 class="company-name">
+          <span class="bracket">&lt;</span>
+          <span class="text-gradient">{{ experience.company }}</span>
+          <span class="bracket">/&gt;</span>
+        </h2>
+        <p class="position">{{ experience.position }}</p>
+      </div>
+    </div>
+
+    <!-- Date Range -->
+    <div class="info-section">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+          <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </div>
+      <span class="info-text">{{ experience.startDate }} - {{ experience.endDate }}</span>
+    </div>
+
+    <!-- Technologies -->
+    <div class="tech-section">
+      <div class="section-label">
+        <span class="slash">//</span>
+        Stack Tecnológico
+      </div>
+      <div class="tech-grid">
+        <span
+          *ngFor="let tech of experience.technologies"
+          class="tech-chip"
+          [class]="'tech-' + tech.color">
+          {{ tech.name }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Detailed Description -->
+    <div class="description-section">
+      <div class="section-label">
+        <span class="slash">//</span>
+        Descripción del Proyecto
+      </div>
+      <div class="description-content">
+        <p *ngFor="let paragraph of getDescriptionParagraphs()">
+          {{ paragraph }}
+        </p>
+      </div>
+    </div>
+  </div>
+</app-base-modal>
