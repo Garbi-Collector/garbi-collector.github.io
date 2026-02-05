@@ -4,17 +4,23 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  right: 0;
   height: 80px;
   z-index: 1000;
   transition: all $transition-medium;
 
+  // ✅ AGREGAR ESTO para prevenir overflow
+  max-width: 100vw;
+  overflow-x: hidden;
+
+  // Efectos de fondo
   // Efectos de fondo
   .topbar-bg {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    right: 0; // ✅ CAMBIO: en vez de width: 100%
+    // width: 100%; // ❌ ELIMINAR
     height: 100%;
     overflow: hidden;
 
@@ -22,7 +28,8 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
+      right: 0; // ✅ CAMBIO
+      // width: 100%; // ❌ ELIMINAR
       height: 100%;
       background: linear-gradient(
           180deg,
@@ -36,7 +43,8 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
+      right: 0; // ✅ CAMBIO
+      // width: 100%; // ❌ ELIMINAR
       height: 100%;
       background-image:
         linear-gradient(rgba($neon-cyan, 0.02) 1px, transparent 1px),
@@ -444,7 +452,8 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
+    right: 0; // ✅ CAMBIO
+    // width: 100%; // ❌ ELIMINAR
     height: 2px;
     background: linear-gradient(
         90deg,
