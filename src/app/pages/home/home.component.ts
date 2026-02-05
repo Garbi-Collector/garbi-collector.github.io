@@ -22,8 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   titles: string[] = [
     'FullStack',
     'BackEnd',
-    'Frontend',
-    'De Videojuegos'
+    'Frontend'
   ];
 
   typedText = '';
