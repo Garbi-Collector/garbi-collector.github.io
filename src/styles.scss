@@ -105,6 +105,7 @@ body {
   color: $text-primary;
   position: relative;
   overflow-x: hidden;
+  cursor: url('/assets/cursors/arrow.cur'), auto;
   @include font-optimization;
   @include touch-optimization;
   @include hide-scrollbar;
@@ -305,4 +306,15 @@ textarea,
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+/* Cursor para cualquier elemento interactivo */
+a,
+button,
+input[type="button"],
+input[type="submit"],
+label[for],
+select,
+[role="button"],
+[onclick] {
+  cursor: url('/assets/cursors/link.cur'), pointer;
 }
