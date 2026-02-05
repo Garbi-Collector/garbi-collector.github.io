@@ -1,0 +1,734 @@
+@use '../../../theme' as *;
+
+.experience-section {
+  min-height: 100vh;
+  padding: 0;
+  position: relative;
+  width: 100%; // ✅ AGREGADO
+  overflow-x: hidden; // ✅ AGREGADO
+
+  @media (max-width: 768px) {
+    padding-top: 30%;
+  }
+
+  // ✅ NUEVO: asegurar que container no se desborde
+  .container {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+// ==========================================
+// SECTION HEADER
+// ==========================================
+.section-header {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+  animation: fadeInDown 0.8s ease;
+
+  .section-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    margin-bottom: $spacing-md;
+
+    .title-bracket {
+      color: $neon-cyan;
+      margin: 0 $spacing-xs;
+    }
+
+    .text-gradient {
+      background: $gradient-neon;
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradient-shift 3s ease infinite;
+    }
+  }
+
+  .title-line {
+    width: 200px;
+    height: 2px;
+    background: $gradient-neon;
+    background-size: 200% 200%;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+    animation: gradient-shift 3s ease infinite;
+  }
+}
+
+// ==========================================
+// VIEW SWITCHER (CYBERPUNK TOGGLE)
+// ==========================================
+.view-switcher {
+  display: flex;
+  justify-content: center;
+  margin-bottom: $spacing-xl;
+  animation: fadeInUp 1s ease;
+
+  @media (max-width: 768px) {
+    margin-bottom: $spacing-lg;
+  }
+}
+
+.switcher-container {
+  position: relative;
+  display: flex;
+  background: rgba($primary-darker, 0.8);
+  border: 2px solid $neon-cyan;
+  border-radius: $border-radius-lg;
+  padding: 4px;
+  box-shadow:
+    0 0 30px rgba(0, 245, 255, 0.4),
+    inset 0 0 30px rgba(0, 245, 255, 0.05);
+  backdrop-filter: blur(10px);
+
+  // Corner decorations
+  .corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: currentColor;
+      box-shadow: 0 0 8px currentColor;
+    }
+
+    &.corner-tl {
+      top: -2px;
+      left: -2px;
+      border-color: $neon-cyan;
+      border-right: none;
+      border-bottom: none;
+
+      &::before {
+        top: 0;
+        left: 0;
+      }
+    }
+
+    &.corner-tr {
+      top: -2px;
+      right: -2px;
+      border-color: $neon-pink;
+      border-left: none;
+      border-bottom: none;
+
+      &::before {
+        top: 0;
+        right: 0;
+      }
+    }
+
+    &.corner-bl {
+      bottom: -2px;
+      left: -2px;
+      border-color: $neon-pink;
+      border-right: none;
+      border-top: none;
+
+      &::before {
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    &.corner-br {
+      bottom: -2px;
+      right: -2px;
+      border-color: $neon-cyan;
+      border-left: none;
+      border-top: none;
+
+      &::before {
+        bottom: 0;
+        right: 0;
+      }
+    }
+  }
+}
+
+.switcher-background {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  height: calc(100% - 8px);
+  background: $gradient-neon;
+  background-size: 200% 200%;
+  border-radius: $border-radius-md;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  box-shadow:
+    0 0 20px rgba(0, 245, 255, 0.6),
+    inset 0 0 20px rgba(0, 245, 255, 0.3);
+  animation: gradient-shift 3s ease infinite;
+  z-index: 1;
+
+  &.right {
+    left: calc(50% + 4px);
+  }
+}
+
+.switcher-option {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  padding: $spacing-md $spacing-lg;
+  background: transparent;
+  border: none;
+  color: rgba($text-primary, 0.5); // ✅ Reducido para mejor contraste cuando NO está activo
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all $transition-medium;
+  position: relative;
+  z-index: 2;
+  min-width: 180px;
+
+  @media (max-width: 768px) {
+    padding: $spacing-sm $spacing-md;
+    min-width: 140px;
+    font-size: 0.9rem;
+  }
+
+  .option-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all $transition-medium;
+
+    @media (max-width: 768px) {
+      width: 20px;
+      height: 20px;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .option-text {
+    transition: all $transition-medium;
+  }
+
+  .option-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle,
+      rgba(0, 245, 255, 0.4) 0%,
+      transparent 70%
+    );
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all $transition-medium;
+    z-index: -1;
+  }
+
+  &.active {
+    color: $primary-darker; // ✅ CAMBIO CLAVE: texto oscuro sobre el fondo brillante
+    text-shadow: none; // ✅ Sin sombra para mejor legibilidad
+
+    .option-icon {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5)); // ✅ Sombra oscura para contraste
+    }
+  }
+
+  &:not(.active):hover {
+    color: rgba($text-primary, 0.9);
+
+    .option-icon {
+      transform: translateY(-2px);
+    }
+
+    .option-glow {
+      width: 150%;
+      height: 150%;
+    }
+  }
+}
+
+// ==========================================
+// CONTENT AREA
+// ==========================================
+.content-area {
+  animation: fadeInUp 1.2s ease;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); // ✅ Cambio de auto-fill a auto-fit
+  gap: $spacing-xl;
+  width: 100%;
+  max-width: 1200px; // ✅ AGREGADO: limitar ancho máximo
+  margin: 0 auto; // ✅ AGREGADO: centrar el grid
+  box-sizing: border-box;
+  justify-items: center; // ✅ AGREGADO: centrar items dentro de sus celdas
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+    padding: 0;
+  }
+
+  @media (max-width: 480px) {
+    gap: $spacing-md;
+  }
+}
+
+// ==========================================
+// ANIMATIONS
+// ==========================================
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes cardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// ==========================================
+// EXPERIENCE & EDUCATION CARDS
+// ==========================================
+.experience-card,
+.education-card {
+  opacity: 0;
+  animation: cardSlideIn 0.6s ease forwards;
+  width: 100%;
+  max-width: 380px; // ✅ AGREGADO: controlar ancho máximo de las cards
+
+  .card-inner {
+    position: relative;
+    background: linear-gradient(
+        135deg,
+        rgba($primary-dark, 0.95) 0%, // ✅ Más opaco para mejor contraste
+        rgba($primary-purple, 0.9) 100%
+    );
+    border: 2px solid $neon-cyan;
+    border-radius: $border-radius-lg;
+    padding: $spacing-lg;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    transition: all $transition-medium;
+    overflow: hidden;
+    box-shadow:
+      0 0 20px rgba(0, 245, 255, 0.3),
+      inset 0 0 20px rgba(0, 245, 255, 0.05);
+
+    @media (max-width: 768px) {
+      padding: $spacing-md;
+      gap: $spacing-sm;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow:
+        0 0 40px rgba(0, 245, 255, 0.6),
+        inset 0 0 40px rgba(0, 245, 255, 0.1);
+      border-color: lighten($neon-cyan, 10%);
+
+      .logo-glow {
+        opacity: 1;
+      }
+
+      .card-corner {
+        animation: cornerPulse 1s ease-in-out infinite;
+      }
+    }
+  }
+}
+
+// Card Logo
+.card-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: $spacing-sm;
+
+  .logo-frame {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border: 2px solid $neon-pink;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba($primary-darker, 0.6); // ✅ Más oscuro para que el logo resalte
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(255, 0, 110, 0.4);
+
+    @media (max-width: 768px) {
+      width: 60px;
+      height: 60px;
+    }
+
+    img {
+      width: 60%;
+      height: 60%;
+      object-fit: contain;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo-glow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle,
+        rgba(255, 0, 110, 0.4) 0%,
+        transparent 70%
+      );
+      opacity: 0;
+      transition: opacity $transition-medium;
+    }
+  }
+}
+
+// Status Badge (solo para educación)
+.status-badge {
+  position: absolute;
+  top: $spacing-md;
+  right: $spacing-md;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba($primary-darker, 0.95); // ✅ Más oscuro
+  border: 2px solid $neon-purple;
+  border-radius: $border-radius-md;
+  font-size: 0.75rem;
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+  color: lighten($neon-purple, 15%); // ✅ Más claro para mejor contraste
+  box-shadow: 0 0 10px rgba(139, 0, 255, 0.4);
+  z-index: 10;
+
+  @media (max-width: 768px) {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+  }
+
+  .badge-icon {
+    width: 14px;
+    height: 14px;
+
+    @media (max-width: 768px) {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  &.completed {
+    border-color: #39ff14;
+    color: #39ff14;
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+  }
+}
+
+// Card Header
+.card-header {
+  text-align: center;
+
+  .company-name,
+  .institution-name {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: lighten($neon-cyan, 5%); // ✅ Ligeramente más claro
+    text-shadow: 0 0 10px rgba(0, 245, 255, 0.6);
+    margin-bottom: $spacing-xs;
+
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+    }
+  }
+
+  .position,
+  .edu-title {
+    font-size: 1rem;
+    color: rgba($text-primary, 0.95); // ✅ Más brillante
+    font-weight: 600;
+
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// Date Range
+.date-range {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  padding: $spacing-sm;
+  background: rgba($primary-darker, 0.6); // ✅ Fondo más oscuro
+  border-radius: $border-radius-md;
+  border: 1px solid rgba($neon-purple, 0.3); // ✅ Borde sutil
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: lighten($neon-purple, 15%); // ✅ Color más claro
+
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+    padding: 6px;
+  }
+
+  .date-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+
+    @media (max-width: 768px) {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  .date-text {
+    white-space: nowrap;
+  }
+}
+
+// Technologies (solo para experiencia)
+.technologies {
+  .tech-label {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: rgba($text-primary, 0.85); // ✅ Más visible
+    display: block;
+    margin-bottom: $spacing-xs;
+
+    @media (max-width: 768px) {
+      font-size: 0.75rem;
+    }
+
+    .slash {
+      color: $neon-pink;
+      margin-right: 4px;
+    }
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-xs;
+
+    .tech-tag {
+      padding: 4px 10px;
+      border-radius: $border-radius-sm;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: 'Courier New', monospace;
+      border: 1px solid;
+      transition: all $transition-fast;
+
+      @media (max-width: 768px) {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+      }
+
+      // ✅ TODOS los tags ahora usan cyan para consistencia y visibilidad
+      &.tech-cyan {
+        color: lighten($neon-cyan, 5%);
+        border-color: $neon-cyan;
+        background: rgba(0, 245, 255, 0.15);
+
+        &:hover {
+          background: rgba(0, 245, 255, 0.25);
+          box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+        }
+      }
+    }
+  }
+}
+
+// Short Description (solo para experiencia)
+.short-description {
+  color: rgba($text-primary, 0.9); // ✅ Más brillante
+  line-height: 1.6;
+  font-size: 0.9rem;
+  flex: 1;
+
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+  }
+}
+
+// View Details Button
+.view-details-btn {
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  background: rgba($primary-darker, 0.9); // ✅ Más oscuro para contraste
+  border: 2px solid $neon-pink;
+  border-radius: $border-radius-md;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: lighten($neon-pink, 5%); // ✅ Más claro
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all $transition-medium;
+  margin-top: auto;
+
+  @media (max-width: 768px) {
+    padding: $spacing-xs $spacing-sm;
+    font-size: 0.85rem;
+  }
+
+  .btn-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-xs;
+    position: relative;
+    z-index: 2;
+
+    .btn-icon {
+      width: 18px;
+      height: 18px;
+
+      @media (max-width: 768px) {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  .btn-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle,
+      rgba(255, 0, 110, 0.4) 0%,
+      transparent 70%
+    );
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all $transition-medium;
+    z-index: 1;
+  }
+
+  &:hover {
+    border-color: lighten($neon-pink, 10%);
+    color: lighten($neon-pink, 10%);
+    box-shadow:
+      0 0 20px rgba(255, 0, 110, 0.6),
+      inset 0 0 20px rgba(255, 0, 110, 0.2);
+    transform: translateY(-2px);
+
+    .btn-glow {
+      width: 200%;
+      height: 200%;
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Card Corner Decorations
+.card-corner {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border: 2px solid;
+
+  &.corner-tl {
+    top: 8px;
+    left: 8px;
+    border-color: $neon-cyan;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  &.corner-tr {
+    top: 8px;
+    right: 8px;
+    border-color: $neon-pink;
+    border-left: none;
+    border-bottom: none;
+  }
+
+  &.corner-bl {
+    bottom: 8px;
+    left: 8px;
+    border-color: $neon-pink;
+    border-right: none;
+    border-top: none;
+  }
+
+  &.corner-br {
+    bottom: 8px;
+    right: 8px;
+    border-color: $neon-cyan;
+    border-left: none;
+    border-top: none;
+  }
+}
+
+@keyframes cornerPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
