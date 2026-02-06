@@ -1,4 +1,15 @@
-import { Component, OnInit, OnDestroy, HostListener, ElementRef, ViewChild, Renderer2, Inject, Optional } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  HostListener,
+  ElementRef,
+  ViewChild,
+  Renderer2,
+  Inject,
+  Optional,
+  Input
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalService, ModalConfig } from '../../service/Modal.service';
 
@@ -13,11 +24,11 @@ export class BaseModalComponent implements OnInit, OnDestroy {
 
   @ViewChild('modalWindow', { static: false }) modalWindow?: ElementRef;
 
-  // Propiedades inyectadas
-  modalId: string;
-  config: ModalConfig;
-  data?: any;
-  zIndex: number;
+  // ✅ AGREGAR @Input() a estas propiedades
+  @Input() modalId!: string;
+  @Input() config!: ModalConfig;
+  @Input() data?: any;
+  @Input() zIndex!: number;
 
   // Estado del modal
   isAnimating = true;
@@ -33,15 +44,17 @@ export class BaseModalComponent implements OnInit, OnDestroy {
     private elementRef: ElementRef,
     private renderer: Renderer2,
     private modalService: ModalService,
-    @Inject('MODAL_ID') modalId: string,
-    @Inject('MODAL_CONFIG') config: ModalConfig,
-    @Inject('MODAL_Z_INDEX') zIndex: number,
-    @Optional() @Inject('MODAL_DATA') data: any
+    @Optional() @Inject('MODAL_ID') injectedModalId?: string,
+    @Optional() @Inject('MODAL_CONFIG') injectedConfig?: ModalConfig,
+    @Optional() @Inject('MODAL_Z_INDEX') injectedZIndex?: number,
+    @Optional() @Inject('MODAL_DATA') injectedData?: any
   ) {
-    this.modalId = modalId;
-    this.config = config;
-    this.data = data;
-    this.zIndex = zIndex;
+    // ✅ Usar valores inyectados si están disponibles (para herencia)
+    // Los @Input() los sobrescribirán si se pasan desde el template
+    if (injectedModalId) this.modalId = injectedModalId;
+    if (injectedConfig) this.config = injectedConfig;
+    if (injectedZIndex !== undefined) this.zIndex = injectedZIndex;
+    if (injectedData !== undefined) this.data = injectedData;
   }
 
   ngOnInit(): void {

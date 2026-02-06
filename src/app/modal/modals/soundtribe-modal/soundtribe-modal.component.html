@@ -1,0 +1,40 @@
+<app-base-modal [modalId]="modalId" [config]="config" [data]="data">
+  <div class="soundtribe-modal">
+    <h2 class="main-title">
+      <span class="bracket">&lt;</span>
+      <span class="text-gradient">SoundTribe - Arquitectura</span>
+      <span class="bracket">/&gt;</span>
+    </h2>
+
+    <p class="intro">Sistema basado en microservicios independientes</p>
+
+    <!-- Microservices -->
+    <div class="microservices-section">
+      <h3 class="section-title">Microservicios Backend</h3>
+      <div *ngFor="let ms of microservices" class="microservice-card">
+        <h4>{{ ms.name }}</h4>
+        <p>{{ ms.description }}</p>
+        <div class="tech-list">
+          <span *ngFor="let tech of ms.technologies" class="tech">{{ tech }}</span>
+        </div>
+        <div class="ms-buttons">
+          <button *ngIf="ms.code" class="btn-small code" (click)="open(ms.code)">Código</button>
+          <button *ngIf="ms.video" class="btn-small video" (click)="open(ms.video)">Video</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Frontend -->
+    <div class="frontend-section">
+      <h3 class="section-title">Frontend</h3>
+      <div class="frontend-card">
+        <p>Interfaz de usuario completa desarrollada en Angular</p>
+        <div class="fe-buttons">
+          <button class="btn-large demo" (click)="open(frontend.demo!)">Ver Demo</button>
+          <button class="btn-large video" (click)="open(frontend.video!)">Video</button>
+          <button class="btn-large code" (click)="open(frontend.code!)">Código</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-base-modal>

@@ -1,0 +1,24 @@
+@use '../../../../theme' as *;
+.soundtribe-modal { min-width: 500px; max-width: 800px; }
+@media (max-width: 768px) { .soundtribe-modal { min-width: unset; width: 100%; } }
+.main-title { font-size: 2rem; font-weight: 900; text-align: center; margin-bottom: 1rem; }
+.bracket { color: #00f5ff; margin: 0 0.5rem; }
+.text-gradient { background: linear-gradient(90deg, #00f5ff, #ff006e, #8b00ff); background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradient-shift 3s ease infinite; }
+.intro { text-align: center; color: rgba(255,255,255,0.8); margin-bottom: 2rem; }
+.section-title { color: #8b00ff; margin: 1.5rem 0 1rem; font-size: 1.3rem; }
+.microservice-card { background: rgba(20,20,40,0.6); border: 1px solid #00f5ff; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+.microservice-card h4 { color: #00f5ff; margin-bottom: 0.5rem; }
+.tech-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.5rem 0; }
+.tech { font-size: 0.75rem; padding: 4px 8px; background: rgba(139,0,255,0.2); border: 1px solid #8b00ff; border-radius: 4px; }
+.ms-buttons, .fe-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+.btn-small, .btn-large { padding: 0.5rem 1rem; border: 2px solid; border-radius: 6px; background: rgba(20,20,40,0.8); font-family: 'Courier New', monospace; font-weight: bold; transition: all 0.3s; }
+.btn-large { flex: 1; min-width: 120px; }
+.code { border-color: #00f5ff; color: #00f5ff; }
+.code:hover { box-shadow: 0 0 15px rgba(0,245,255,0.6); transform: translateY(-2px); }
+.video { border-color: #ff006e; color: #ff006e; }
+.video:hover { box-shadow: 0 0 15px rgba(255,0,110,0.6); transform: translateY(-2px); }
+.demo { border-color: #39ff14; color: #39ff14; }
+.demo:hover { box-shadow: 0 0 15px rgba(57,255,20,0.6); transform: translateY(-2px); }
+.frontend-card { background: rgba(20,20,40,0.6); border: 1px solid #ff006e; border-radius: 8px; padding: 1rem; }
+@keyframes gradient-shift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+

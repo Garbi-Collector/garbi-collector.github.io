@@ -1,0 +1,117 @@
+<app-base-modal [modalId]="modalId" [config]="config" [data]="data">
+  <div class="project-detail-modal">
+
+    <!-- Header with Icon -->
+    <div class="modal-header-content">
+      <div class="project-icon-large">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path [attr.d]="getIconPath(project.icon)"/>
+        </svg>
+      </div>
+      <div class="header-text">
+        <h2 class="project-title">
+          <span class="bracket">&lt;</span>
+          <span class="text-gradient">{{ project.name }}</span>
+          <span class="bracket">/&gt;</span>
+        </h2>
+        <p class="project-subtitle">{{ project.shortDescription }}</p>
+      </div>
+    </div>
+
+    <!-- Development Time (for side projects) -->
+    <div class="info-badge" *ngIf="project.developmentTime">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+        <polyline points="12 6 12 12 16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>{{ project.developmentTime }}</span>
+    </div>
+
+    <!-- Technologies -->
+    <div class="tech-section">
+      <div class="section-label">
+        <span class="slash">//</span>
+        Stack Tecnológico
+      </div>
+      <div class="tech-grid">
+            <span
+              *ngFor="let tech of project.technologies"
+              class="tech-chip"
+              [class]="'tech-' + tech.color">
+              {{ tech.name }}
+            </span>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Full Description -->
+    <div class="description-section">
+      <div class="section-label">
+        <span class="slash">//</span>
+        Sobre el Proyecto
+      </div>
+      <div class="description-content">
+        <p *ngFor="let paragraph of getDescriptionParagraphs()">
+          {{ paragraph }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button
+        *ngIf="project.links.demo"
+        class="cyber-btn demo"
+        (click)="openDemo()">
+            <span class="btn-content">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                <polygon points="10 8 16 12 10 16 10 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Ver Demo
+            </span>
+        <div class="btn-glow"></div>
+      </button>
+
+      <button
+        *ngIf="project.links.video"
+        class="cyber-btn video"
+        (click)="openVideo()">
+            <span class="btn-content">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23 7l-7 5 7 5V7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="1" y="5" width="15" height="14" rx="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Ver Video
+            </span>
+        <div class="btn-glow"></div>
+      </button>
+
+      <button
+        *ngIf="project.links.code"
+        class="cyber-btn code"
+        (click)="openCode()">
+            <span class="btn-content">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="16 18 22 12 16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="8 6 2 12 8 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Ver Código
+            </span>
+        <div class="btn-glow"></div>
+      </button>
+    </div>
+
+    <!-- Private Project Notice -->
+    <div class="private-notice" *ngIf="project.isPrivate">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+        <line x1="12" y1="8" x2="12" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="12" y1="16" x2="12.01" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span>Este es un proyecto privado. El código y la demo no están disponibles públicamente.</span>
+    </div>
+  </div>
+</app-base-modal>
