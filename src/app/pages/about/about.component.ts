@@ -20,7 +20,7 @@ interface Technology {
 })
 export class AboutComponent {
 
-  cvUrl = "https://drive.google.com/file/d/1r0UIT5ANW_a9pX7ce-qt4wBbDwz691An/view?usp=sharing"; // Reemplazar con tu URL de Google Drive
+  cvUrl = "https://drive.google.com/file/d/14GRfj-gcZR2NVoxHQMBHPOTtZqmaboKU/view?usp=sharing"; // Reemplazar con tu URL de Google Drive
 
   constructor(private router: Router) {}
 
