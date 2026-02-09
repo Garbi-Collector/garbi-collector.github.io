@@ -131,13 +131,20 @@ Funciona completamente offline con sincronizaci\xF3n opcional cuando hay conexi\
 
 Cada d\xEDa presenta un nuevo desaf\xEDo que requiere pensamiento l\xF3gico, matem\xE1tico y optimizaci\xF3n de algoritmos. Las soluciones est\xE1n implementadas en Java utilizando diferentes estructuras de datos y patrones de dise\xF1o.
 
-Excelente pr\xE1ctica para mejorar habilidades de problem-solving y an\xE1lisis de complejidad algor\xEDtmica.`,technologies:[{name:"Java",color:"cyan"},{name:"Algoritmos",color:"purple"},{name:"Estructuras de Datos",color:"pink"}],links:{code:"https://github.com/Garbi-Collector/Advent-of-code"},developmentTime:"1-12 Diciembre 2025",type:"side"},{id:"chordle",name:"Chordle",icon:"game",shortDescription:"Juego de palabras inspirado en Wordle",fullDescription:`Juego web interactivo inspirado en Wordle, desarrollado completamente en un solo d\xEDa como desaf\xEDo personal.
+Excelente pr\xE1ctica para mejorar habilidades de problem-solving y an\xE1lisis de complejidad algor\xEDtmica.`,technologies:[{name:"Java",color:"cyan"},{name:"Algoritmos",color:"purple"},{name:"Estructuras de Datos",color:"pink"}],links:{code:"https://github.com/Garbi-Collector/Advent-of-code"},developmentTime:"1-12 Diciembre 2025",type:"side"},{id:"chordle",name:"Chordle",icon:"game",shortDescription:"Juego musical de deducci\xF3n de acordes inspirado en Wordle",fullDescription:`Juego web interactivo de entrenamiento auditivo inspirado en la mec\xE1nica de Wordle, desarrollado como desaf\xEDo personal en un solo d\xEDa.
 
-Los jugadores deben adivinar una palabra de 5 letras en 6 intentos. El juego proporciona feedback visual con colores para indicar letras correctas en la posici\xF3n correcta (verde), letras correctas en posici\xF3n incorrecta (amarillo), y letras que no est\xE1n en la palabra (gris).
+El jugador debe escuchar un acorde y adivinar cu\xE1l es en un m\xE1ximo de 6 intentos. En cada ronda puede reproducir el acorde para analizarlo y luego ingresar su respuesta.
 
-Incluye animaciones suaves, teclado virtual interactivo, y sistema de estad\xEDsticas locales.`,technologies:[{name:"Angular",color:"pink"},{name:"TypeScript",color:"cyan"},{name:"CSS Animations",color:"purple"}],links:{demo:"https://garbi-collector.github.io/Chordle/",code:"https://github.com/Garbi-Collector/Chordle"},developmentTime:"22 Enero 2026 (1 d\xEDa)",type:"side"},{id:"radish-open-radio",name:"Radish Open Radio",icon:"radio",shortDescription:"Web app para escuchar radios de todo el mundo",fullDescription:`Aplicaci\xF3n web que permite escuchar estaciones de radio de todo el mundo en tiempo real. Desarrollada en 3 d\xEDas como proyecto de aprendizaje de APIs de audio.
+Despu\xE9s de cada intento, el juego proporciona feedback detallado sobre tres aspectos:
+- Fundamental: la nota base del acorde.
+- Tipo: si el acorde es mayor, menor.
+- Notas: si las notas coinciden de forma correcta, parcial o incorrecta.
 
-Integra la API de Radio Browser para acceder a miles de estaciones de radio globales. Los usuarios pueden buscar por pa\xEDs, g\xE9nero, idioma o nombre de la estaci\xF3n.
+El objetivo es usar esta informaci\xF3n para deducir el acorde correcto antes de agotar los intentos.
+
+Incluye interfaz simple, animaciones suaves y una experiencia enfocada en el entrenamiento del o\xEDdo musical.`,technologies:[{name:"Angular",color:"pink"},{name:"TypeScript",color:"cyan"},{name:"CSS Animations",color:"purple"}],links:{demo:"https://garbi-collector.github.io/Chordle/",code:"https://github.com/Garbi-Collector/Chordle"},developmentTime:"22 Enero 2026 (1 d\xEDa)",type:"side"},{id:"radish-open-radio",name:"Radish Open Radio",icon:"radio",shortDescription:"Web app para escuchar radios de todo el mundo",fullDescription:`Aplicaci\xF3n web que permite escuchar estaciones de radio de todo el mundo en tiempo real. Desarrollada en 3 d\xEDas como proyecto de aprendizaje de APIs de audio.
+
+Integra la API de Radio Browser para acceder a miles de estaciones de radio globales. Los usuarios pueden buscar en un mapa las radios que les interesen.
 
 Incluye reproductor de audio personalizado, lista de favoritos guardada localmente, y visualizador de metadata en tiempo real (nombre de la canci\xF3n, artista, etc.).`,technologies:[{name:"Angular",color:"pink"},{name:"TypeScript",color:"cyan"},{name:"Radio Browser API",color:"green"},{name:"Web Audio API",color:"purple"}],links:{demo:"https://garbi-collector.github.io/RadishOpenRadio/",code:"https://github.com/Garbi-Collector/RadishOpenRadio"},developmentTime:"27-29 Enero 2026 (3 d\xEDas)",type:"side"},{id:"radishbot-discord",name:"RadishBot Discord",icon:"bot",shortDescription:"Bot de Discord para escuchar radios",fullDescription:`Bot de Discord que lleva la funcionalidad de Radish Open Radio a los servidores de Discord, permitiendo a los usuarios escuchar radio directamente en canales de voz.
 
